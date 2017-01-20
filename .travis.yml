@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.5
   - 5.6
   - 7.0
   - 7.1
@@ -13,4 +12,5 @@ install:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
+  - cp test/env.yml.dist test/env.yml
   - vendor/bin/phpunit --verbose --coverage-text

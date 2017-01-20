@@ -16,7 +16,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->options = Yaml::parse(file_get_contents(__DIR__ . '/../../env.yml'));
     }
 
-
     /**
      * @test
      */
@@ -25,13 +24,5 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client($this->options);
 
         self::assertInstanceOf(\Http\Client\HttpClient::class, $client->getHttpClient());
-    }
-    
-    public function test()
-    {
-        $client = new Client($this->options);
-        $response = $client->api('zone')->status('main');
-
-        self::assertNotNull($response);
     }
 }
