@@ -1,0 +1,28 @@
+# grumphp.yml
+parameters:
+    bin_dir: "./vendor/bin"
+    git_dir: "."
+    hooks_dir: ~
+    tasks:
+        composer:
+            no_check_lock: true
+        phpcs:
+            standard: PSR2
+            ignore_patterns:
+              - "spec/*Spec.php"
+              - "test/*.php"
+            metadata:
+              priority: 300
+        phpcsfixer: ~
+        phpcsfixer2: ~
+        phpparser:
+            visitors:
+                no_exit_statements: ~
+                never_use_else: ~
+                forbidden_function_calls:
+                    blacklist: [var_dump]
+        phpunit:
+            metadata:
+                priority: 100
+    testsuites: []
+    extensions: []
