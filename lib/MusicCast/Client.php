@@ -122,6 +122,21 @@ class Client
             case 'zone':
                 $api = new Api\Zone($this);
                 break;
+            case 'system':
+                $api = new Api\System($this);
+                break;
+            case 'tuner':
+                $api = new Api\Tuner($this);
+                break;
+            case 'network':
+                $api = new Api\Network($this);
+                break;
+            case 'usb':
+                $api = new Api\Usb($this);
+                break;
+            case 'cd':
+                $api = new Api\CD($this);
+                break;
             case 'events':
                 $api = new Api\Event($this);
                 break;

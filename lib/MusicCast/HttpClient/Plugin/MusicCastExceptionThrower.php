@@ -2,6 +2,7 @@
 namespace MusicCast\HttpClient\Plugin;
 
 use Http\Client\Common\Plugin;
+use MusicCast\Enum\ResponseCodes;
 use MusicCast\Exception\ErrorException;
 use MusicCast\Exception\RuntimeException;
 use MusicCast\HttpClient\Message\ResponseMediator;
@@ -16,15 +17,15 @@ class MusicCastExceptionThrower implements Plugin
     public function handleRequest(RequestInterface $request, callable $next, callable $first)
     {
         return $next($request)->then(function (ResponseInterface $response) use ($request) {
-            if ($response->getStatusCode() < 400 || $response->getStatusCode() > 600) {
-                return $response;
-            }
-
             $content = ResponseMediator::getContent($response);
-            if (is_array($content) && isset($content['message'])) {
-                if (400 == $response->getStatusCode()) {
-                    throw new ErrorException($content['message'], 400);
+            if (is_array($content) && isset($content['response_code'])) {
+                $code = $content['response_code'];
+
+                if ($code === ResponseCodes::SUCCESSFUL_REQUEST) {
+                    return $response;
                 }
+
+                throw new ErrorException(ResponseCodes::getMessage($code), 400);
             }
 
             throw new RuntimeException(
