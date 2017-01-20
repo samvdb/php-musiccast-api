@@ -3,6 +3,8 @@
 A simple wrapper for the Yamaha MusicCast API.
 Not all call's have been implemented yet so pull requests are welcome!
 
+[![Build Status](https://travis-ci.org/samvdb/php-musiccast-api.svg?branch=master)](https://travis-ci.org/samvdb/php-musiccast-api)
+
 Based on the API specification found at [https://jayvee.com.au/downloads/commands/yamaha/YXC_API_Spec_Basic.pdf](https://jayvee.com.au/downloads/commands/yamaha/YXC_API_Spec_Basic.pdf)
 
 ## Install
