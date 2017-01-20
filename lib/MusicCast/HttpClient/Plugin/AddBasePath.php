@@ -33,7 +33,7 @@ class AddBasePath implements Plugin
         $path = $request->getUri()->getPath();
 
         $uri = $request->getUri()
-                ->withPath(sprintf('/YamahaExtendedControl/%s/%s', $this->version, $path))
+                ->withPath(sprintf('/YamahaExtendedControl/%s', $this->version) . $path)
             ;
 
         $request = $request->withUri($uri);

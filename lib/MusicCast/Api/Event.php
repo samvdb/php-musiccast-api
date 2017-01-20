@@ -23,10 +23,12 @@ class Event extends AbstractApi
     public function subscribe($port = 41100, $appName = 'MusicCast', $version = '1')
     {
         $headers = [
-            sprintf('X-AppName:%s/%s', $appName, $version),
-            sprintf('X-AppPort:%s', $port)
+            'X-AppName' => sprintf('%s/%s', $appName, $version),
+            'X-AppPort' => sprintf('%s', $port),
         ];
 
-        return $this->get('/', [], $headers);
+        $result = $this->get('', [], $headers);
+
+        return $result;
     }
 }

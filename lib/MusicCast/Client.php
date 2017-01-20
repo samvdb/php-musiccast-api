@@ -106,7 +106,7 @@ class Client
         );
 
 
-        $this->addHeaders(['Accept' => 'application/json']);
+        $this->addHeaders(['Accept' =>  sprintf('application/vnd.musiccast.%s+json', $this->getApiVersion())]);
     }
 
     /**
