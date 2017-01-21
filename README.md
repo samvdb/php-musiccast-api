@@ -40,7 +40,7 @@ $yamaha = new MusicCast\Client([
 
 
 ```php
-$result = $yamaha->api('zone')->getStatus('main');
+$result = $yamaha->api('zone')->status('main');
 print_r($result);
 
 ```
