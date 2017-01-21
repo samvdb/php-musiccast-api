@@ -7,12 +7,25 @@ Not all call's have been implemented yet so pull requests are welcome!
 
 Based on the API specification found at [https://jayvee.com.au/downloads/commands/yamaha/YXC_API_Spec_Basic.pdf](https://jayvee.com.au/downloads/commands/yamaha/YXC_API_Spec_Basic.pdf)
 
+## Requirements
+
+PHP >= 5.6
+Guzzle library,
+(optional) PHPUnit to run tests.
+
 ## Install
+
+Download [Composer](https://getcomposer.org/)
+```bash
+$ curl -s http://getcomposer.org/installer | php
+```
 
 Via composer
 ```bash
-$ composer require samvdb/php-musiccast-api
+$ composer require samvdb/php-musiccast-api php-http/guzzle6-adapter
 ```
+
+You can install any adapter you want but guzzle is probably fine for what you want to do.
 
 ## Creating a client
 
