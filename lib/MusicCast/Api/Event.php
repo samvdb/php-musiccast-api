@@ -1,7 +1,6 @@
 <?php
-
-
 namespace MusicCast\Api;
+use MusicCast\HttpClient\Plugin\AddBasePath;
 
 /**
  * Events are to notify Devices’ status/setup changes immediately to external applications. Events
@@ -27,8 +26,9 @@ class Event extends AbstractApi
             'X-AppPort' => sprintf('%s', $port),
         ];
 
-        $result = $this->get('', [], $headers);
-
-        return $result;
+//        $plugin = $this->client->getPlugin(AddBasePath::class);
+//        $this->client->removePlugin(AddBasePath::class);
+        return $this->get('', [], $headers);
+//        $this->client->addPlugin($plugin);
     }
 }

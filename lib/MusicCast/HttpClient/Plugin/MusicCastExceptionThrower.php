@@ -26,6 +26,8 @@ class MusicCastExceptionThrower implements Plugin
                 }
 
                 throw new ErrorException(ResponseCodes::getMessage($code), 400);
+            } elseif ($response->getStatusCode() === 200) {
+                return $response;
             }
 
             throw new RuntimeException(

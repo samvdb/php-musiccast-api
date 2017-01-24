@@ -106,7 +106,7 @@ class Client
         );
 
 
-        $this->addHeaders(['Accept' =>  sprintf('application/vnd.musiccast.%s+json', $this->getApiVersion())]);
+        $this->addHeaders(['Accept' => sprintf('application/vnd.musiccast.%s+json', $this->getApiVersion())]);
     }
 
     /**
@@ -177,6 +177,22 @@ class Client
             if ($plugin instanceof $fqcn) {
                 unset($this->plugins[$idx]);
                 $this->httpClientModified = true;
+            }
+        }
+    }
+
+    /**
+     * Get a plugin by its fully qualified class name (FQCN).
+     *
+     * @param string $fqcn
+     *
+     * @return Plugin
+     */
+    public function getPlugin($fqcn)
+    {
+        foreach ($this->plugins as $idx => $plugin) {
+            if ($plugin instanceof $fqcn) {
+                return $plugin;
             }
         }
     }
