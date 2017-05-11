@@ -7,6 +7,9 @@ Not all call's have been implemented yet so pull requests are welcome!
 
 Based on the API specification found at [https://jayvee.com.au/downloads/commands/yamaha/YXC_API_Spec_Basic.pdf](https://jayvee.com.au/downloads/commands/yamaha/YXC_API_Spec_Basic.pdf)
 
+Updated API specs on 2017/04:
+[https://www.pdf-archive.com/2017/04/21/yxc-api-spec-advanced/yxc-api-spec-advanced.pdf](https://www.pdf-archive.com/2017/04/21/yxc-api-spec-advanced/yxc-api-spec-advanced.pdf)
+
 ## Requirements
 
 PHP >= 5.6
