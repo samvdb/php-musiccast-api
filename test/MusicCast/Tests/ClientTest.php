@@ -1,4 +1,5 @@
 <?php
+
 namespace MusicCast\Tests;
 
 use MusicCast\Client;
@@ -16,12 +17,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->options = Yaml::parse(file_get_contents(__DIR__ . '/../../env.yml'));
     }
 
-    public function test()
-    {
-        $client = new Client($this->options);
-//        var_dump($client->api('system')->functionStatus());die;
-//        var_dump($client->api('system')->sendIrCode());
-    }
 
     /**
      * @test

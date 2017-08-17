@@ -5,56 +5,81 @@
 
 namespace MusicCast\Tests\Api;
 
+use MusicCast\Exception\ErrorException;
 
-class SystemTest extends TestCase
+class ZoneTest extends TestCase
 {
 
     /**
      * @test
      */
-    public function testGetDeviceInfo()
+    public function testGetStatus()
     {
-        assert(($this->client->api('system')->getDeviceInfo())['response_code'] === 0);
+        self::assertArrayHasKey('power', $this->client->api('zone')->getStatus('main'));
     }
 
-    public function testGetFeatures()
+    /**
+     * @test
+     */
+    public function testGetStatusThrowErrorExceptionIfBadZoneName()
     {
-        assert(($this->client->api('system')->getFeatures())['response_code'] === 0);
+        $this->expectException(ErrorException::class);
+        $this->client->api('zone')->getStatus('fakeZone');
     }
 
-    public function testGetNetworkStatus()
+    public function testGetSoundProgramList()
     {
-        assert(($this->client->api('system')->getNetworkStatus())['response_code'] === 0);
+        self::assertArrayHasKey('sound_program_list', $this->client->api('zone')->getSoundProgramList('main'));
     }
 
-    public function testGetFuncStatus()
+    public function testSetPower()
     {
-        assert(($this->client->api('system')->getFuncStatus())['response_code'] === 0);
+        $power = ($this->client->api('zone')->getStatus('main'))['power'];
+        $this->client->api('zone')->setPower('main', $power);
     }
 
-    public function testSetAutoPowerStandby()
+    public function setSleep()
     {
-        $funcStatus = $this->client->api('system')->getFuncStatus();
-        if (array_key_exists('auto_power_standby', $funcStatus)) {
-            $previous = $funcStatus['auto_power_standby'];
-            $this->client->api('system')->setAutoPowerStandby(!$previous);
-            assert($this->client->api('system')->getFuncStatus()['auto_power_standby'] != $previous);
-            $this->client->api('system')->setAutoPowerStandby($previous);
-            assert($this->client->api('system')->getFuncStatus()['auto_power_standby'] === $previous);
-        }
-        else {
-            echo 'Can\'t test setAutoPowerStandby on this device';
-        }
-
+        $sleep = ($this->client->api('zone')->getStatus('main'))['sleep'];
+        $this->client->api('zone')->setSleep('main', $sleep);
     }
 
-    public function testGetLocationInfo()
+    public function testSetVolumeByStep()
     {
-        assert(($this->client->api('system')->getLocationInfo())['response_code'] === 0);
+        $volume = ($this->client->api('zone')->getStatus('main'))['volume'];
+        $this->client->api('zone')->setVolume('main', 'up', '1');
+        self::assertTrue(($this->client->api('zone')->getStatus('main'))['volume'] == ($volume + 1));
+        $this->client->api('zone')->setVolume('main', 'down', '1');
+        self::assertTrue(($this->client->api('zone')->getStatus('main'))['volume'] == $volume);
     }
 
-    public function testSendIrCode()
+    public function testSetVolumeByLevel()
     {
-        assert(($this->client->api('system')->sendIrCode('00000000'))['response_code'] === 0);
+        $volume = ($this->client->api('zone')->getStatus('main'))['volume'];
+        $this->client->api('zone')->setVolume('main', $volume + 1);
+        self::assertTrue(($this->client->api('zone')->getStatus('main'))['volume'] == ($volume + 1));
+        $this->client->api('zone')->setVolume('main', $volume);
+        self::assertTrue(($this->client->api('zone')->getStatus('main'))['volume'] == $volume);
+    }
+
+    public function setMute()
+    {
+        $mute = ($this->client->api('zone')->getStatus('main'))['mute'];
+        $this->client->api('zone')->setMute('main', !$mute);
+        self::assertTrue(($this->client->api('zone')->getStatus('main'))['mute'] == !$mute);
+        $this->client->api('zone')->setMute('main', $mute);
+        self::assertTrue(($this->client->api('zone')->getStatus('main'))['volume'] == $mute);
+    }
+
+    public function testPrepareInputChange()
+    {
+        $input = ($this->client->api('zone')->getStatus('main'))['input'];
+        $this->client->api('zone')->prepareInputChange('main', $input);
+    }
+
+    public function testSetInput()
+    {
+        $input = ($this->client->api('zone')->getStatus('main'))['input'];
+        $this->client->api('zone')->setInput('main', $input);
     }
 }

@@ -5,6 +5,10 @@ namespace MusicCast\Api;
 
 /**
  * @author Sam Van der Borght <samvanderborght@gmail.com>
+ * @author Damien Surot <damien@toxeek.com>
+ */
+/**
+ * @author Sam Van der Borght <samvanderborght@gmail.com>
  */
 class System extends AbstractApi
 {
@@ -13,48 +17,80 @@ class System extends AbstractApi
      *
      * @return array
      */
-    public function deviceInfo()
+    public function getDeviceInfo()
     {
-        return $this->get('/getDeviceInfo');
+        return $this->call('getDeviceInfo');
     }
 
     /**
      * For retrieving feature information equipped with a Device
+     *
+     * @return array
      */
-    public function features()
+    public function getFeatures()
     {
-        return $this->get('/getFeatures');
+        return $this->call('getFeatures');
     }
 
-    public function networkStatus()
+    /**
+     * For retrieving network related setup / information
+     *
+     * @return array
+     */
+    public function getNetworkStatus()
     {
-        return $this->get('/getNetworkStatus');
+        return $this->call('getNetworkStatus');
     }
 
-    public function functionStatus()
+    /**
+     * For retrieving setup/information of overall system function. Parameters are readable only when
+     * corresponding functions are available in “func_list” of /system/getFeatures
+     *
+     * @return array
+     */
+    public function getFuncStatus()
     {
-        return $this->get('/getFuncStatus');
+        return $this->call('getFuncStatus');
     }
 
-    public function autoPowerStandby($enable = true)
+    /**
+     * For setting Auto Power Standby status. Actual operations/reactions of enabling Auto Power
+     * Standby depend on each Device
+     *
+     * @param bool $enable Specifies Auto Power Standby status
+     * @return array
+     */
+    public function setAutoPowerStandby($enable = true)
     {
-        throw new \Exception('Not implemented');
+        return $this->call('setAutoPowerStandby?enable=' . rawurlencode($enable ? 'true' : 'false'));
     }
 
-    public function locationInfo()
+    /**
+     * For retrieving Location information
+     * @return array
+     */
+    public function getLocationInfo()
     {
-        return $this->get('/getLocationInfo');
+        return $this->call('getLocationInfo');
     }
 
+    /**
+     * For sending specific remote IR code. A Device is operated same as remote IR code reception. But
+     * continuous IR code cannot be used in this command. Refer to each Device’s IR code list for details
+     * @param $code IR code in 8-digit hex
+     * @return array
+     */
     public function sendIrCode($code)
     {
-        throw new \Exception('Not implemented');
-
-        return $this->get('/sendIrCode?code=1');
+        return $this->call('sendIrCode?code=' . rawurlencode($code));
     }
 
-    public function get($path, array $parameters = array(), array $requestHeaders = array())
+    /**
+     * @param $path
+     * @return array
+     */
+    private function call($path)
     {
-        return parent::get('/system' . $path, $parameters, $requestHeaders);
+        return $this->get('/system/' . $path);
     }
 }

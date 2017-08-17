@@ -28,12 +28,11 @@ abstract class AbstractApi implements ApiInterface
      * Send a GET request with query parameters.
      *
      * @param string $path           Request path.
-     * @param array  $parameters     GET parameters.
      * @param array  $requestHeaders Request Headers.
      *
      * @return array|string
      */
-    protected function get($path, array $parameters = array(), array $requestHeaders = array())
+    protected function get($path, array $requestHeaders = array())
     {
         $response = $this->client->getHttpClient()->get($path, $requestHeaders);
 
