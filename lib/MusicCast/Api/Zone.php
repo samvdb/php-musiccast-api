@@ -141,6 +141,14 @@ class Zone extends AbstractApi
         return $this->call($zone, 'prepareInputChange?input='.rawurlencode($input));
     }
 
+    /**
+     * @return array|string
+     */
+    public function getSignalInfo($zone)
+    {
+        return $this->call($zone, 'getSignalInfo');
+    }
+
 
     private function call($zone, $path)
     {

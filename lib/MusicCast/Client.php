@@ -2,22 +2,22 @@
 namespace MusicCast;
 
 use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\Plugin;
 use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
-use Http\Client\Common\Plugin;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\MessageFactory;
 use Http\Message\StreamFactory;
 use MusicCast\Api\ApiInterface;
 use MusicCast\Exception\BadMethodCallException;
 use MusicCast\Exception\InvalidArgumentException;
+use MusicCast\HttpClient\Plugin\AddBasePath;
 use MusicCast\HttpClient\Plugin\History;
 use MusicCast\HttpClient\Plugin\MusicCastExceptionThrower;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use MusicCast\HttpClient\Plugin\AddBasePath;
 
 class Client
 {
@@ -122,17 +122,17 @@ class Client
             case 'zone':
                 $api = new Api\Zone($this);
                 break;
+            case 'dist':
+                $api = new Api\Distribution($this);
+                break;
             case 'system':
                 $api = new Api\System($this);
                 break;
             case 'tuner':
                 $api = new Api\Tuner($this);
                 break;
-            case 'network':
-                $api = new Api\Network($this);
-                break;
-            case 'usb':
-                $api = new Api\Usb($this);
+            case 'netusb':
+                $api = new Api\NetworkUSB($this);
                 break;
             case 'cd':
                 $api = new Api\CD($this);

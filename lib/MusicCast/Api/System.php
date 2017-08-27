@@ -77,12 +77,53 @@ class System extends AbstractApi
     /**
      * For sending specific remote IR code. A Device is operated same as remote IR code reception. But
      * continuous IR code cannot be used in this command. Refer to each Device’s IR code list for details
-     * @param $code IR code in 8-digit hex
+     * @param string $code IR code in 8-digit hex
      * @return array
      */
     public function sendIrCode($code)
     {
         return $this->call('sendIrCode?code=' . rawurlencode($code));
+    }
+
+    /**
+     * @return array
+     */
+    public function getNameText()
+    {
+        return $this->call('getNameText');
+    }
+
+    /**
+     * @return array
+     */
+    public function isNewFirmwareAvailable($type = 'network')
+    {
+        return $this->call('isNewFirmwareAvailable?type=' . rawurlencode($type));
+    }
+
+    /**
+     * @return array
+     */
+    public function getTag()
+    {
+        return $this->call('getTag');
+    }
+
+    /**
+     * @return array
+     */
+    public function getDisklavierSettings()
+    {
+        return $this->call('getDisklavierSettings');
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getMusicCastTreeInfo()
+    {
+        return $this->call('getMusicCastTreeInfo');
     }
 
     /**
