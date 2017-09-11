@@ -10,6 +10,9 @@ Based on the API specification found at [https://jayvee.com.au/downloads/command
 Updated API specs on 2017/04:
 [https://www.pdf-archive.com/2017/04/21/yxc-api-spec-advanced/yxc-api-spec-advanced.pdf](https://www.pdf-archive.com/2017/04/21/yxc-api-spec-advanced/yxc-api-spec-advanced.pdf)
 
+### Update
+The API pdf's can also be found in this repository.
+
 ## Requirements
 
 PHP >= 5.6
