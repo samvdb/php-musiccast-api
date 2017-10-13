@@ -5,7 +5,7 @@ namespace MusicCastTests;
 use MusicCast\Client;
 use Symfony\Component\Yaml\Yaml;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends LiveTest
 {
 
     /**
@@ -24,6 +24,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        parent::setUp();
         $this->options = Yaml::parse(file_get_contents(__DIR__ . '/env.yml'));
     }
 }
