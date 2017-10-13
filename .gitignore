@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 /vendor/
-/test/env.yml
+/tests/env.yml
 /phpunit.xml
 /composer.lock
 /.php_cs.cache
+/.idea/
