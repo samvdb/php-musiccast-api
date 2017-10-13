@@ -1,0 +1,12 @@
+{
+  "response_code": 0,
+  "enable": false,
+  "mode": "output_primary",
+  "input": "unknown",
+  "pair": {
+    "mac_address": "000000000000"
+  },
+  "disklavier": {
+    "ip_address": "0.0.0.0"
+  }
+}

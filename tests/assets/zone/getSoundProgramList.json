@@ -1,0 +1,25 @@
+{
+  "response_code": 0,
+  "sound_program_list": [
+    "munich",
+    "vienna",
+    "chamber",
+    "cellar_club",
+    "roxy_theatre",
+    "bottom_line",
+    "sports",
+    "action_game",
+    "roleplaying_game",
+    "music_video",
+    "standard",
+    "spectacle",
+    "sci-fi",
+    "adventure",
+    "drama",
+    "mono_movie",
+    "2ch_stereo",
+    "5ch_stereo",
+    "surr_decoder",
+    "straight"
+  ]
+}

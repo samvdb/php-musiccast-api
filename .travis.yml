@@ -4,12 +4,30 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
+  - nightly
 
-sudo: false
+matrix:
+  allow_failures:
+  - php: nightly
+
+env:
+  - COMPOSER_OPTS=""
+  - COMPOSER_OPTS="--prefer-lowest"
 
 install:
-  - travis_retry composer install --no-interaction --prefer-source
+  - composer self-update --snapshot
+  - composer update $COMPOSER_OPTS
 
 script:
-  - cp test/env.yml.dist test/env.yml
-  - vendor/bin/phpunit --verbose --coverage-text
+  - vendor/bin/phpunit --coverage-clover=clover.xml
+  - tests/lint.sh
+
+after_success:
+  - vendor/bin/coveralls
+
+git:
+  depth: 5
+
+dist: trusty
+sudo: false

@@ -1,0 +1,50 @@
+{
+  "response_code": 0,
+  "mode": "root_wireless",
+  "own_mac_idx": 0,
+  "mac_address_list": [
+    {
+      "hop_num": 0,
+      "mac_address": "ABCDEFE12F67",
+      "ap_status": "none",
+      "child_num": 0,
+      "ip_address": "192.168.1.9"
+    },
+    {
+      "hop_num": 0,
+      "mac_address": "ABCDEA3DFA1D",
+      "ap_status": "none",
+      "child_num": 0,
+      "ip_address": "192.168.1.14"
+    },
+    {
+      "hop_num": 0,
+      "mac_address": "ABCDE62642B5",
+      "ap_status": "none",
+      "child_num": 0,
+      "ip_address": "192.168.1.13"
+    },
+    {
+      "hop_num": 0,
+      "mac_address": "ABCDEA00A677",
+      "ap_status": "none",
+      "child_num": 0,
+      "ip_address": "192.168.1.10"
+    }
+  ],
+  "ap_list": [
+    {
+      "ssid": "privateWIFI",
+      "key": "",
+      "type": "wpa2-psk(aes)",
+      "bssid": "703ACB751410"
+    },
+    {
+      "ssid": "privateWIFI",
+      "key": "",
+      "type": "wpa2-psk(aes)",
+      "bssid": "703ACB751922"
+    }
+  ],
+  "hop_num": 0
+}

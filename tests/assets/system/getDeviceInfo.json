@@ -1,0 +1,13 @@
+{
+  "response_code": 0,
+  "model_name": "RX-V481D",
+  "destination": "BG",
+  "device_id": "ABCDEEFAA063",
+  "system_id": "ABCC5863",
+  "system_version": 1.22,
+  "api_version": 1.17,
+  "netmodule_version": "1145    ",
+  "netmodule_checksum": "86FB2237",
+  "operation_mode": "normal",
+  "update_error_code": "FFFFFFFF"
+}
