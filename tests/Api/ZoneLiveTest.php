@@ -52,7 +52,7 @@ class ZoneLiveTest extends \MusicCastTests\LiveTest
         $volume = $this->client->api('zone')->getStatus('main')['volume'];
         $this->client->api('zone')->setVolume('main', 'up', '1');
         sleep(1);
-        self::assertEquals(($volume + 1), ($this->client->api('zone')->getStatus('main'))['volume']);
+        self::assertEquals($volume + 1, $this->client->api('zone')->getStatus('main')['volume']);
         $this->client->api('zone')->setVolume('main', 'down', '1');
         sleep(1);
         self::assertEquals($volume, $this->client->api('zone')->getStatus('main')['volume']);
