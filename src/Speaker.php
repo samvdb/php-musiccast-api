@@ -32,7 +32,7 @@ class Speaker
     /**
      * @return Device
      */
-    public function getDevice(): Device
+    public function getDevice()
     {
         return $this->device;
     }

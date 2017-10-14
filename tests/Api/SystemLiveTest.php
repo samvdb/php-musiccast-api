@@ -25,7 +25,7 @@ class SystemLiveTest extends \MusicCastTests\LiveTest
     public function testGetFeatures()
     {
         self::assertArrayHasKey('system', $this->client->api('system')->getFeatures());
-        self::assertArrayHasKey('func_list', ($this->client->api('system')->getFeatures())['system']);
+        self::assertArrayHasKey('func_list', $this->client->api('system')->getFeatures()['system']);
     }
 
     /**
