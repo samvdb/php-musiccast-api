@@ -16,6 +16,7 @@ class Speaker
     protected $model;
     protected $name;
     protected $device;
+    const NO_GROUP = "NoGroup";
 
     /**
      * Create an instance of the Speaker class.
@@ -62,8 +63,8 @@ class Speaker
     public function getGroup()
     {
         $group = $this->device->getClient()->api('dist')->getDistributionInfo()['group_id'];
-        if (is_numeric($group)) {
-            $group = $this->device->getIp();
+        if (is_numeric($group) && intval($group == 0)) {
+            $group = self::NO_GROUP;
         }
         return $group;
     }
@@ -76,7 +77,7 @@ class Speaker
     public function isCoordinator()
     {
         $role = $this->device->getClient()->api('dist')->getDistributionInfo()['role'];
-        return $role == 'server' || $role == 'none';
+        return $role == 'server' || $this->getGroup() == Speaker::NO_GROUP;
     }
 
     /**
@@ -158,6 +159,44 @@ class Speaker
     public function mute($mute = true)
     {
         $this->device->getClient()->api('zone')->setMute('main', $mute);
+        return $this;
+    }
+
+
+    /**
+     * Power On this speaker.
+     *
+     * @return static
+     */
+    public function powerOn()
+    {
+        return $this->setPower('on');
+    }
+
+    /**
+     * Stand by this speaker.
+     *
+     * @return static
+     */
+    public function standBy()
+    {
+        return $this->setPower('standby');
+    }
+
+
+    /**
+     * Power toggle this speaker.
+     *
+     * @return static
+     */
+    public function powerToggle()
+    {
+        return $this->setPower('toggle');
+    }
+
+    private function setPower($power)
+    {
+        $this->device->getClient()->api('zone')->setPower('main', $power);
         return $this;
     }
 }

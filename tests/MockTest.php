@@ -90,7 +90,7 @@ abstract class MockTest extends \PHPUnit_Framework_TestCase
     protected function getController()
     {
         $speaker = $this->getSpeaker();
-        return new Controller($speaker, $this->network);
+        return new Controller($speaker, $this->network, 0);
     }
 
     protected function getSpeaker()

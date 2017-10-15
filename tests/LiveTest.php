@@ -21,6 +21,8 @@ abstract class LiveTest extends \PHPUnit_Framework_TestCase
 
     protected $client;
 
+    protected $options;
+
     protected function setUp()
     {
         $this->network = new Network();
@@ -36,6 +38,7 @@ abstract class LiveTest extends \PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
             $this->markTestSkipped("No speakers found on the current network");
         }
-        $this->client = new Client(Yaml::parse(file_get_contents(__DIR__ . '/env.yml')));
+        $this->options = Yaml::parse(file_get_contents(__DIR__ . '/env.yml'));
+        $this->client = new Client($this->options);
     }
 }

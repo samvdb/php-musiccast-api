@@ -43,7 +43,7 @@ class SpeakerTest extends MockTest
 
     public function testGetGroup()
     {
-        self::assertEquals("localhost", $this->speaker->getGroup());
+        self::assertEquals(Speaker::NO_GROUP, $this->speaker->getGroup());
     }
 
     public function testIsCoordinator()
