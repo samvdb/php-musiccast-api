@@ -2,8 +2,6 @@
 
 namespace MusicCast;
 
-use MusicCast\Exception\NotImplementedException;
-
 /**
  * Allows interaction with the groups of speakers.
  *
@@ -52,6 +50,7 @@ class Controller extends Speaker
     private $speakers;
     private $playlists;
     private $favorites;
+    private $distribution_id;
 
     /**
      * Create a Controller instance from a speaker.
@@ -60,7 +59,7 @@ class Controller extends Speaker
      *
      * @param Speaker $speaker
      */
-    public function __construct(Speaker $speaker, Network $network)
+    public function __construct(Speaker $speaker, Network $network, $distribution_id)
     {
         parent::__construct($speaker->device);
         if (!$speaker->isCoordinator()) {
@@ -72,6 +71,7 @@ class Controller extends Speaker
         $this->group_name = $this->getName();
         $this->uuid = $this->getUuid();
         $this->speakers = $this->getSpeakers();
+        $this->distribution_id = $distribution_id;
     }
 
     /**
@@ -87,7 +87,8 @@ class Controller extends Speaker
         $group = [];
         $speakers = $this->network->getSpeakers();
         foreach ($speakers as $speaker) {
-            if ($speaker->getGroup() === $this->getGroup()) {
+            if ($speaker->getGroup() === $this->getGroup() &&
+                !(is_numeric($speaker->getGroup()) || intval($speaker->getGroup()) == 0)) {
                 $group[] = $speaker;
             }
         }
@@ -135,7 +136,7 @@ class Controller extends Speaker
      *
      * @return string
      */
-    private function getStateName()
+    public function getStateName()
     {
         return $this->device->getClient()->api('netusb')->getPlayInfo()['playback'];
     }
@@ -147,16 +148,7 @@ class Controller extends Speaker
      */
     public function getStateDetails()
     {
-        $data = $this->device->getClient()->api('netusb')->getPlayInfo();
-
-
-        $state = State::createFromJson($data, $this);
-
-        $state->duration = $data["total_time"];
-        $state->position = $data["play_time"];
-
-
-        return $state;
+        return State::createFromJson($this);
     }
 
     /**
@@ -256,17 +248,19 @@ class Controller extends Speaker
         if ($speaker->getUuid() === $this->getUuid()) {
             return $this;
         }
-        $this->speakers[$speaker->getDevice()->getIp()] = $speaker;
-        $nbSpeaker = sizeof($this->speakers);
-        $speaker->device->getClient()->api('dist')->setClientInfo($speaker->getGroup(), 'main', $this->ip);
-        $this->device->getClient()->api('dist')->setServerInfo($speaker->getGroup(), 'add', 'main', [$speaker->ip]);
-        $this->device->getClient()->api('dist')->startDistribution($nbSpeaker);
-
-        if ($nbSpeaker == 1) {
-            $this->device->getClient()->api('dist')->setGroupName($this->name . '+' . $speaker->getName());
-            return $this;
+        if (!in_array($speaker, $this->speakers)) {
+            $group = $this->getGroup();
+            if ($group == Speaker::NO_GROUP) {
+                $group = md5($this->device->getIp());
+            }
+            if ($speaker->getGroup() == Speaker::NO_GROUP) {
+                $speaker->device->getClient()->api('dist')->setClientInfo($group, 'main', $this->device->getIp());
+                $this->device->getClient()->api('dist')->
+                setServerInfo($group, 'add', 'main', array($speaker->getDevice()->getIp()));
+                $this->device->getClient()->api('dist')->startDistribution($this->distribution_id);
+                $this->speakers[] = $speaker;
+            }
         }
-        $this->device->getClient()->api('dist')->setGroupName($this->name . '+' . $nbSpeaker . ' rooms');
         return $this;
     }
 
@@ -283,19 +277,26 @@ class Controller extends Speaker
         if ($speaker->getUuid() === $this->getUuid()) {
             return $this;
         }
-        unset($this->speakers[$speaker->getDevice()->getIp()]);
-        $nbSpeaker = sizeof($this->speakers);
-        $this->device->getClient()->api('dist')->setServerInfo($speaker->getGroup(), 'remove', 'main', [$speaker->ip]);
-        $speaker->device->getClient()->api('dist')->setClientInfo();
-        $this->device->getClient()->api('dist')->startDistribution($nbSpeaker);
-
-
-        if ($nbSpeaker == 1) {
-            $this->device->getClient()->api('dist')->setGroupName($this->name . '+'
-                . array_values($this->speakers)[0]->getName());
-            return $this;
+        if (in_array($speaker, $this->speakers)) {
+            unset($this->speakers[array_search($speaker, $this->speakers)]);
+            $speaker->device->getClient()->api('dist')->setClientInfo();
+            $this->device->getClient()->api('dist')->
+            setServerInfo($this->getGroup(), 'remove', 'main', array($speaker->getDevice()->getIp()));
+            $this->device->getClient()->api('dist')->startDistribution($this->distribution_id);
         }
-        $this->device->getClient()->api('dist')->setGroupName($this->name . '+' . $nbSpeaker . ' rooms');
+        return $this;
+    }
+
+    /**
+     * Removes all speakers from the group of this Controller.
+     *
+     * @return static
+     */
+    public function removeAllSpeakers()
+    {
+        foreach ($this->getSpeakers() as $speaker) {
+            $this->removeSpeaker($speaker);
+        }
         return $this;
     }
 
@@ -390,21 +391,9 @@ class Controller extends Speaker
      */
     public function getQueue()
     {
-        throw new NotImplementedException();
+        return $this->device->getClient()->api('netusb')->getPlayQueue();
     }
 
-
-    /**
-     * Grab the current state of the Controller (including it's queue and playing attributes).
-     *
-     * @param bool $pause Whether to pause the controller or not
-     *
-     * @return ControllerState
-     */
-    public function exportState($pause = true)
-    {
-        throw new NotImplementedException();
-    }
 
     /**
      * Check if a playlist with the specified name exists on this network.

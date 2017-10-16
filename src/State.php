@@ -18,6 +18,11 @@ class State extends \MusicCast\Tracks\Track
     public $position = "";
 
     /**
+     * @var int $queueNumber The zero-based number of the track in the queue.
+     */
+    public $queueNumber = 0;
+
+    /**
      * Create a Track object.
      */
     public function __construct()
@@ -28,16 +33,19 @@ class State extends \MusicCast\Tracks\Track
     /**
      * Update the track properties using an xml element.
      *
-     * @param array $json The json element representing the track meta data.
+     * @param Device $device The device.
      * @param Controller $controller A controller instance on the playlist's network
      *
      * @return  static
      */
-    public static function createFromJson($json, Controller $controller)
+    public static function createFromJson(Controller $controller)
     {
-        $track = parent::createFromJson($json, $controller);
-        $track->duration = "02:30";
-        $track->position = '';
+        $data = $controller->getDevice()->getClient()->api('netusb')->getPlayInfo();
+        $track = parent::createFromJson($controller);
+        $track->duration = $data['total_time'];
+        $track->position = $data['play_time'];
+        $data = $controller->getDevice()->getClient()->api('netusb')->getPlayQueue();
+        $track->queueNumber = $data['playing_index'];
         return $track;
     }
 }

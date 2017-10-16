@@ -34,7 +34,7 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.7",
     "mockery/mockery": "^0.9.4",
-    "phpunit/phpunit": "^4.0 || ^5.5",
+    "phpunit/phpunit": "^5.7.14",
     "phpunit/php-code-coverage": "^4",
     "php-http/guzzle6-adapter": "^1.0",
     "guzzlehttp/psr7": "^1.2",
@@ -57,5 +57,8 @@
     "branch-alias": {
       "dev-master": "1.0-dev"
     }
+  },
+  "conflict": {
+    "php-http/message-factory": "< 1.0.2"
   }
 }

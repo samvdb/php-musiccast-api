@@ -38,19 +38,14 @@ class Distribution extends AbstractApi
      * @param string $server_ip_addr
      * @return array
      */
-    public function setClientInfo($groupId = '', array $zone = null, $server_ip_addr = null)
+    public function setClientInfo($groupId = '', $zone = 'main', $server_ip_addr = null)
     {
         $info = array('group_id' => $groupId);
-        if ($zone != null) {
-            $info['zone'] = $zone;
-        }
+        $info['zone'] = array($zone);
         if ($server_ip_addr != null) {
             $info['server_ip_address'] = $server_ip_addr;
         }
-        return $this->callPost(
-            'setCientInfo',
-            $info
-        );
+        return $this->callPost('setClientInfo', $info);
     }
 
     /**
@@ -59,17 +54,13 @@ class Distribution extends AbstractApi
      */
     public function setGroupName($name)
     {
-        return $this->callPost(
-            'setGroupName',
-            array('name' => $name)
-        );
+        return $this->callPost('setGroupName', array('name' => $name));
     }
 
     private function callPost($path, array $parameters = array())
     {
         return $this->post('/dist/' . $path, $parameters);
     }
-
 
 
     /**
@@ -79,11 +70,18 @@ class Distribution extends AbstractApi
      * @param array $client_list Clients IP
      * @return array
      */
-    public function setServerInfo($groupId, $type, $zone, array $client_list = array())
+    public function setServerInfo($groupId, $type = null, $zone = null, array $client_list = null)
     {
-        return $this->callPost(
-            'setServerInfo',
-            array('group_id' => $groupId, 'type' => $type, 'zone' => $zone, 'client_list' => $client_list)
-        );
+        $info = array('group_id' => $groupId);
+        if ($type != null) {
+            $info['type'] = $type;
+        }
+        if ($zone != null) {
+            $info['zone'] = $zone;
+        }
+        if ($client_list != null) {
+            $info['client_list'] = $client_list;
+        }
+        return $this->callPost('setServerInfo', array($info));
     }
 }

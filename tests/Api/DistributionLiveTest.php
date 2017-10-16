@@ -34,8 +34,7 @@ class DistributionLiveTest extends \MusicCastTests\LiveTest
      */
     public function testSetCientInfo()
     {
-        //self::assertArrayHasKey('???', $this->client->api('dist')->setCientInfo());
-        $this->markTestSkipped('dist/setCientInfo method not implemented');
+        self::assertArrayHasKey('response_code', $this->client->api('dist')->setClientInfo());
     }
 
     /**

@@ -37,58 +37,58 @@ class ZoneLiveTest extends \MusicCastTests\LiveTest
 
     public function testSetPower()
     {
-        $power = ($this->client->api('zone')->getStatus('main'))['power'];
+        $power = $this->client->api('zone')->getStatus('main')['power'];
         $this->client->api('zone')->setPower('main', $power);
     }
 
     public function setSleep()
     {
-        $sleep = ($this->client->api('zone')->getStatus('main'))['sleep'];
+        $sleep = $this->client->api('zone')->getStatus('main')['sleep'];
         $this->client->api('zone')->setSleep('main', $sleep);
     }
 
     public function testAdjustVolume()
     {
-        $volume = ($this->client->api('zone')->getStatus('main'))['volume'];
+        $volume = $this->client->api('zone')->getStatus('main')['volume'];
         $this->client->api('zone')->setVolume('main', 'up', '1');
         sleep(1);
-        self::assertEquals(($volume + 1), ($this->client->api('zone')->getStatus('main'))['volume']);
+        self::assertEquals($volume + 1, $this->client->api('zone')->getStatus('main')['volume']);
         $this->client->api('zone')->setVolume('main', 'down', '1');
         sleep(1);
-        self::assertEquals($volume, ($this->client->api('zone')->getStatus('main'))['volume']);
+        self::assertEquals($volume, $this->client->api('zone')->getStatus('main')['volume']);
     }
 
     public function testSetVolume()
     {
-        $volume = ($this->client->api('zone')->getStatus('main'))['volume'];
+        $volume = $this->client->api('zone')->getStatus('main')['volume'];
         $this->client->api('zone')->setVolume('main', $volume + 1);
         sleep(1);
-        self::assertEquals(($volume + 1), ($this->client->api('zone')->getStatus('main'))['volume']);
+        self::assertEquals($volume + 1, $this->client->api('zone')->getStatus('main')['volume']);
         $this->client->api('zone')->setVolume('main', $volume);
         sleep(1);
-        self::assertEquals($volume, ($this->client->api('zone')->getStatus('main'))['volume']);
+        self::assertEquals($volume, $this->client->api('zone')->getStatus('main')['volume']);
     }
 
     public function setMute()
     {
-        $mute = ($this->client->api('zone')->getStatus('main'))['mute'];
+        $mute = $this->client->api('zone')->getStatus('main')['mute'];
         $this->client->api('zone')->setMute('main', !$mute);
         sleep(1);
-        self::assertEquals(!$mute, ($this->client->api('zone')->getStatus('main'))['mute']);
+        self::assertEquals(!$mute, $this->client->api('zone')->getStatus('main')['mute']);
         $this->client->api('zone')->setMute('main', $mute);
         sleep(1);
-        self::assertEquals($mute, ($this->client->api('zone')->getStatus('main'))['volume']);
+        self::assertEquals($mute, $this->client->api('zone')->getStatus('main')['volume']);
     }
 
     public function testPrepareInputChange()
     {
-        $input = ($this->client->api('zone')->getStatus('main'))['input'];
+        $input = $this->client->api('zone')->getStatus('main')['input'];
         $this->client->api('zone')->prepareInputChange('main', $input);
     }
 
     public function testSetInput()
     {
-        $input = ($this->client->api('zone')->getStatus('main'))['input'];
+        $input = $this->client->api('zone')->getStatus('main')['input'];
         $this->client->api('zone')->setInput('main', $input);
     }
 }

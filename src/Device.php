@@ -74,7 +74,7 @@ class Device implements LoggerAwareInterface
     /**
      * @return string
      */
-    public function getIp(): string
+    public function getIp()
     {
         return $this->ip;
     }
@@ -82,7 +82,7 @@ class Device implements LoggerAwareInterface
     /**
      * @return Client
      */
-    public function getClient(): Client
+    public function getClient()
     {
         return $this->client;
     }

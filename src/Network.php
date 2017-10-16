@@ -135,11 +135,12 @@ class Network implements LoggerAwareInterface
     {
         $controllers = [];
         $speakers = $this->getSpeakers();
+        $index = 0;
         foreach ($speakers as $speaker) {
             if (!$speaker->isCoordinator()) {
                 continue;
             }
-            $controllers[$speaker->getDevice()->getIp()] = new Controller($speaker, $this);
+            $controllers[$speaker->getDevice()->getIp()] = new Controller($speaker, $this, $index++);
         }
         return $controllers;
     }
@@ -302,9 +303,9 @@ class Network implements LoggerAwareInterface
         if (!array_key_exists($ip, $speakers)) {
             throw new \InvalidArgumentException("No speaker found for the IP address '{$ip}'");
         }
-        $group = $speakers[$ip]->getGroup();
+
         foreach ($this->getControllers() as $controller) {
-            if ($controller->getGroup() === $group) {
+            if ($controller->getDevice()->getIp() === $ip) {
                 return $controller;
             }
         }

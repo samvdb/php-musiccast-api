@@ -45,8 +45,9 @@ class Track
     {
     }
 
-    public static function createFromJson($json, Controller $controller)
+    public static function createFromJson(Controller $controller)
     {
+        $json = $controller->getDevice()->getClient()->api('netusb')->getPlayInfo();
         $track = new Track();
         $track->title = $json['track'];
         $track->input = $json['input'];
@@ -58,7 +59,7 @@ class Track
         if ($art = $json['albumart_url']) {
             if (substr($art, 0, 4) !== "http") {
                 $art = ltrim($art, "/");
-                $art = sprintf("http://%s:80/%s", $controller->getIp(), $art);
+                $art = sprintf("http://%s:80/%s", $controller->getDevice()->getIp(), $art);
             }
             $track->albumArt = $art;
         }
