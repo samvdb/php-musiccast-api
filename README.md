@@ -1,9 +1,8 @@
 # Yamaha MusicCast API PHP Library
 
-A simple wrapper for the Yamaha MusicCast API.
-Not all call's have been implemented yet so pull requests are welcome!
+A php library for interacting with Yamaha MusicCast speakers.
 
-[![Build Status](https://travis-ci.org/samvdb/php-musiccast-api.svg?branch=master)](https://travis-ci.org/samvdb/php-musiccast-api)
+[![Build Status](https://travis-ci.org/grandDam/php-musiccast-api.svg?branch=master)](https://travis-ci.org/grandDam/php-musiccast-api)
 
 Based on the API specification found at [https://jayvee.com.au/downloads/commands/yamaha/YXC_API_Spec_Basic.pdf](https://jayvee.com.au/downloads/commands/yamaha/YXC_API_Spec_Basic.pdf)
 
@@ -30,22 +29,17 @@ $ composer require samvdb/php-musiccast-api php-http/guzzle6-adapter
 
 You can install any adapter you want but guzzle is probably fine for what you want to do.
 
-## Creating a client
+## Examples
+Start all groups playing music
 
 ```php
-$yamaha = new MusicCast\Client([
-    'host' => 'localhost',
-    'port' => 80, // default value
-]);
-```
-
-## Using the API
-
-
-```php
-$result = $yamaha->api('zone')->status('main');
-print_r($result);
-
+$musicCast = new \duncan3dc\Sonos\Network;
+$controllers = $musicCast->getControllers();
+foreach ($controllers as $controller) {
+    echo $controller->getGroup()\n";
+    echo "\tState: " . $controller->getStateName() . "\n";
+    $controller->play();
+}
 ```
 
 ## Enabling events
@@ -89,11 +83,6 @@ while(true) {
 $ composer test
 ```
 
-## Credits
-
-This api is highly inspired by the excellent Github api client made by KnpLabs!
-
-[KnpLabs/php-github-api](https://github.com/KnpLabs/php-github-api)
 
 
 

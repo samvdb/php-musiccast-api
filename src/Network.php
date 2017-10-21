@@ -13,6 +13,11 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Psr\SimpleCache\CacheInterface;
 
+/**
+ * Class Network
+ * @package MusicCast
+ * @author Damien Surot <damien@toxeek.com>
+ */
 class Network implements LoggerAwareInterface
 {
 
@@ -80,7 +85,7 @@ class Network implements LoggerAwareInterface
     }
 
     /**
-     * @return
+     * @return string
      */
     public function getMulticastAddress()
     {
@@ -96,7 +101,7 @@ class Network implements LoggerAwareInterface
     }
 
     /**
-     * @return
+     * @return string
      */
     public function getNetworkInterface()
     {
@@ -124,6 +129,7 @@ class Network implements LoggerAwareInterface
         if ($controller = reset($controllers)) {
             return $controller;
         }
+        return null;
     }
 
     /**
@@ -140,15 +146,13 @@ class Network implements LoggerAwareInterface
             if (!$speaker->isCoordinator()) {
                 continue;
             }
-            $controllers[$speaker->getDevice()->getIp()] = new Controller($speaker, $this, $index++);
+            $controllers[$speaker->getIp()] = new Controller($speaker, $this, $index++);
         }
         return $controllers;
     }
 
     /**
-     * Get all the speakers on the network.
-     *
-     * @return
+     * @return Speaker[]|null
      */
     public function getSpeakers()
     {
@@ -190,6 +194,24 @@ class Network implements LoggerAwareInterface
         }
 
         return $this->speakers;
+    }
+
+    public function getSpeakerByName($name)
+    {
+        $roughMatch = false;
+        $speakers = $this->getSpeakers();
+        foreach ($speakers as $speaker) {
+            if ($speaker->getName() === $name) {
+                return $speaker;
+            }
+            if (strtolower($speaker->getName()) === strtolower($name)) {
+                $roughMatch = $speaker;
+            }
+        }
+        if ($roughMatch) {
+            return $roughMatch;
+        }
+        return null;
     }
 
     protected function getCacheKey()
@@ -305,9 +327,10 @@ class Network implements LoggerAwareInterface
         }
 
         foreach ($this->getControllers() as $controller) {
-            if ($controller->getDevice()->getIp() === $ip) {
+            if ($controller->getIp() === $ip) {
                 return $controller;
             }
         }
+        return null;
     }
 }

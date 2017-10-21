@@ -18,7 +18,9 @@ abstract class LiveTest extends \PHPUnit_Framework_TestCase
      * @var Network
      */
     protected $network;
-
+    /**
+     * @var Client
+     */
     protected $client;
 
     protected $options;

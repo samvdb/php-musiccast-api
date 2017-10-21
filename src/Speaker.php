@@ -10,6 +10,7 @@ namespace MusicCast;
 
 /**
  * Represents an individual MusicCast speaker, to allow volume, equalisation, and other settings to be managed.
+ * @author Damien Surot <damien@toxeek.com>
  */
 class Speaker
 {
@@ -30,14 +31,15 @@ class Speaker
         $this->name = $device->getNetworkStatus()['network_name'];
     }
 
-    /**
-     * @return Device
-     */
-    public function getDevice()
+    public function call($api, $method, array $args = [])
     {
-        return $this->device;
+        return $this->device->call($api, $method, $args);
     }
 
+    public function getIp()
+    {
+        return $this->device->getIp();
+    }
 
     /**
      * @return mixed
@@ -62,7 +64,7 @@ class Speaker
      */
     public function getGroup()
     {
-        $group = $this->device->getClient()->api('dist')->getDistributionInfo()['group_id'];
+        $group = $this->call('dist', 'getDistributionInfo')['group_id'];
         if (is_numeric($group) && intval($group == 0)) {
             $group = self::NO_GROUP;
         }
@@ -76,7 +78,7 @@ class Speaker
      */
     public function isCoordinator()
     {
-        $role = $this->device->getClient()->api('dist')->getDistributionInfo()['role'];
+        $role = $this->call('dist', 'getDistributionInfo')['role'];
         return $role == 'server' || $this->getGroup() == Speaker::NO_GROUP;
     }
 
@@ -87,19 +89,17 @@ class Speaker
      */
     public function getUuid()
     {
-        return $this->device->getDeviceInfo()['device_id'];
+        return $this->device->getUuid();
     }
 
     /**
      * Get the current volume of this speaker.
      *
-     * @param int The current volume between 0 and 100
-     *
      * @return int
      */
     public function getVolume()
     {
-        return (int)$this->device->getClient()->api('zone')->getStatus('main')['volume'];
+        return (int)$this->call('zone', 'getStatus', ['main'])['volume'];
     }
 
     /**
@@ -111,7 +111,7 @@ class Speaker
      */
     public function setVolume($volume)
     {
-        $this->device->getClient()->api('zone')->setVolume('main', $volume);
+        $this->call('zone', 'setVolume', ['main', $volume]);
         return $this;
     }
 
@@ -125,7 +125,7 @@ class Speaker
      */
     public function adjustVolume($adjust)
     {
-        $this->device->getClient()->api('zone')->setVolume('main', $adjust > 0 ? 'up' : 'down', abs($adjust));
+        $this->call('zone', 'setVolume', ['main', $adjust > 0 ? 'up' : 'down', abs($adjust)]);
         return $this;
     }
 
@@ -136,7 +136,7 @@ class Speaker
      */
     public function isMuted()
     {
-        return (bool)$this->device->getClient()->api('zone')->getStatus('main')['mute'];
+        return (bool)$this->call('zone', 'getStatus', ['main'])['mute'];
     }
 
     /**
@@ -158,7 +158,7 @@ class Speaker
      */
     public function mute($mute = true)
     {
-        $this->device->getClient()->api('zone')->setMute('main', $mute);
+        $this->call('zone', 'setMute', ['main', $mute]);
         return $this;
     }
 
@@ -196,7 +196,7 @@ class Speaker
 
     private function setPower($power)
     {
-        $this->device->getClient()->api('zone')->setPower('main', $power);
+        $this->call('zone', 'setPower', ['main', $power]);
         return $this;
     }
 }

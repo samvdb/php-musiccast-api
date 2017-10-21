@@ -11,10 +11,8 @@ namespace MusicCastTests;
 use Mockery;
 use MusicCast\Speaker;
 
-class SpeakerTest extends MockTest
+class SpeakerTest extends \MusicCastTests\MockTest
 {
-    protected $device;
-
     /**
      * @var Speaker
      */

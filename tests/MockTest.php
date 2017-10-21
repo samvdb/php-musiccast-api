@@ -76,6 +76,23 @@ abstract class MockTest extends \PHPUnit_Framework_TestCase
         MockTest::mockMethod($zoneApi, 'zone', "setSleep");
         MockTest::mockMethod($zoneApi, 'zone', "setVolume");
         $client->shouldReceive("api")->with('zone')->andReturn($zoneApi);
+
+        $netusbApi = Mockery::mock("MusicCast\Api\NetworkUSB");
+        MockTest::mockMethod($netusbApi, 'netusb', "getAccountStatus");
+        MockTest::mockMethod($netusbApi, 'netusb', "getListInfo");
+        MockTest::mockMethod($netusbApi, 'netusb', "getMcPlaylist");
+        MockTest::mockMethod($netusbApi, 'netusb', "getMcPlaylistName");
+        MockTest::mockMethod($netusbApi, 'netusb', "getPlayInfo");
+        MockTest::mockMethod($netusbApi, 'netusb', "getPlayQueue");
+        MockTest::mockMethod($netusbApi, 'netusb', "getPresetInfo");
+        MockTest::mockMethod($netusbApi, 'netusb', "getRecentInfo");
+        MockTest::mockMethod($netusbApi, 'netusb', "manageMcPlaylist");
+        MockTest::mockMethod($netusbApi, 'netusb', "recallPreset");
+        MockTest::mockMethod($netusbApi, 'netusb', "setPlayback");
+        MockTest::mockMethod($netusbApi, 'netusb', "storePreset");
+        MockTest::mockMethod($netusbApi, 'netusb', "toggleRepeat");
+        MockTest::mockMethod($netusbApi, 'netusb', "toggleShuffle");
+        $client->shouldReceive("api")->with('netusb')->andReturn($netusbApi);
         return $client;
     }
 

@@ -8,10 +8,9 @@
 
 namespace MusicCast\Tracks;
 
-use MusicCast\Controller;
-
 /**
  * Representation of a track.
+ * @author Damien Surot <damien@toxeek.com>
  */
 class Track
 {
@@ -19,52 +18,79 @@ class Track
     /**
      * @var string $title The name of the track.
      */
-    public $title = "";
+    protected $title = "";
 
     /**
      * @var string $artist The name of the artist of the track.
      */
-    public $artist = "";
+    protected $artist = "";
 
     /**
      * @var string $album The name of the album of the track.
      */
-    public $album = "";
+    protected $album = "";
 
     /**
      * @var string $albumArt The full path to the album art for this track.
      */
-    public $albumArt = "";
+    protected $albumArt = "";
 
-    public $input = "";
+    protected $input = "";
 
     /**
-     * Create a Track object.
+     * Track constructor.
+     * @param $input
+     * @param $title
+     * @param $albumArt
+     * @param null $artist
+     * @param null $album
      */
-    public function __construct()
+    public function __construct($input, $title, $albumArt, $artist = null, $album = null)
     {
+        $this->title = $title;
+        $this->artist = $artist;
+        $this->album = $album;
+        $this->albumArt = stripcslashes($albumArt);
+        $this->input = $input;
     }
 
-    public static function createFromJson(Controller $controller)
+    /**
+     * @return string
+     */
+    public function getTitle()
     {
-        $json = $controller->getDevice()->getClient()->api('netusb')->getPlayInfo();
-        $track = new Track();
-        $track->title = $json['track'];
-        $track->input = $json['input'];
+        return $this->title;
+    }
 
-        $track->artist = $json['artist'];
-        $track->album = $json['album'];
+    /**
+     * @return string
+     */
+    public function getArtist()
+    {
+        return $this->artist;
+    }
 
+    /**
+     * @return string
+     */
+    public function getAlbum()
+    {
+        return $this->album;
+    }
 
-        if ($art = $json['albumart_url']) {
-            if (substr($art, 0, 4) !== "http") {
-                $art = ltrim($art, "/");
-                $art = sprintf("http://%s:80/%s", $controller->getDevice()->getIp(), $art);
-            }
-            $track->albumArt = $art;
-        }
+    /**
+     * @return string
+     */
+    public function getAlbumArt()
+    {
+        return $this->albumArt;
+    }
 
-
-        return $track;
+    /**
+     * @return string
+     */
+    public function getInput()
+    {
+        return $this->input;
     }
 }

@@ -1,0 +1,45 @@
+{
+  "response_code": 0,
+  "service_list": [
+    {
+      "id": "napster",
+      "registered": false,
+      "login_status": "logged_out",
+      "username": "",
+      "type": "formal",
+      "trial_time_left": 0
+    },
+    {
+      "id": "juke",
+      "registered": false,
+      "login_status": "logged_out",
+      "username": "",
+      "type": "formal",
+      "trial_time_left": 0
+    },
+    {
+      "id": "qobuz",
+      "registered": false,
+      "login_status": "logged_out",
+      "username": "",
+      "type": "formal",
+      "trial_time_left": 0
+    },
+    {
+      "id": "tidal",
+      "registered": false,
+      "login_status": "logged_out",
+      "username": "",
+      "type": "formal",
+      "trial_time_left": 0
+    },
+    {
+      "id": "deezer",
+      "registered": true,
+      "login_status": "logged_in",
+      "username": "",
+      "type": "formal",
+      "trial_time_left": 0
+    }
+  ]
+}

@@ -10,6 +10,7 @@ namespace MusicCast;
 
 /**
  * Provides an interface for managing playlists on the current network.
+ * @author Damien Surot <damien@toxeek.com>
  */
 class Playlist
 {
@@ -59,6 +60,6 @@ class Playlist
 
     public function play($index = 0)
     {
-        $this->controller->getDevice()->getClient()->api('netusb')->manageMcPlaylist($this->id, 'play', $index);
+        $this->controller->call('netusb', 'manageMcPlaylist', [$this->id, 'play', $index]);
     }
 }

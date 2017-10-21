@@ -34,7 +34,7 @@ class Distribution extends AbstractApi
 
     /**
      * @param string $groupId
-     * @param array $zone
+     * @param string $zone
      * @param string $server_ip_addr
      * @return array
      */

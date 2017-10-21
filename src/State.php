@@ -2,10 +2,13 @@
 
 namespace MusicCast;
 
+use MusicCast\Tracks\Track;
+
 /**
  * Representation of the current state of a controller.
+ * @author Damien Surot <damien@toxeek.com>
  */
-class State extends \MusicCast\Tracks\Track
+class State
 {
     /**
      * @var string $duration The duration of the currently active track (hh:mm:ss).
@@ -17,35 +20,40 @@ class State extends \MusicCast\Tracks\Track
      */
     public $position = "";
 
-    /**
-     * @var int $queueNumber The zero-based number of the track in the queue.
-     */
-    public $queueNumber = 0;
+    public $track;
 
     /**
      * Create a Track object.
      */
     public function __construct()
     {
-        parent::__construct();
     }
 
     /**
      * Update the track properties using an xml element.
      *
-     * @param Device $device The device.
-     * @param Controller $controller A controller instance on the playlist's network
-     *
-     * @return  static
+     * @param $playInfo
+     * @param $ip
+     * @return static
      */
-    public static function createFromJson(Controller $controller)
+    public static function buildState($playInfo, $ip)
     {
-        $data = $controller->getDevice()->getClient()->api('netusb')->getPlayInfo();
-        $track = parent::createFromJson($controller);
-        $track->duration = $data['total_time'];
-        $track->position = $data['play_time'];
-        $data = $controller->getDevice()->getClient()->api('netusb')->getPlayQueue();
-        $track->queueNumber = $data['playing_index'];
-        return $track;
+        $state = new State();
+        if ($art = $playInfo['albumart_url']) {
+            if (substr($art, 0, 4) !== "http") {
+                $art = ltrim($art, "/");
+                $art = sprintf("http://%s:80/%s", $ip, $art);
+            }
+        }
+        $state->track = new Track(
+            $playInfo['input'],
+            $playInfo['track'],
+            $art,
+            $playInfo['artist'],
+            $playInfo['album']
+        );
+        $state->duration = $playInfo['total_time'];
+        $state->position = $playInfo['play_time'];
+        return $state;
     }
 }

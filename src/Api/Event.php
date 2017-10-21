@@ -10,6 +10,7 @@ namespace MusicCast\Api;
 class Event extends AbstractApi
 {
     /**
+     *
      * Event notification timeouts in 10 minutes if no further event request is sent from an IP address
      * set as event receiving device. If another request is made within 10 minutes of previous request,
      * the timeout duration is reset and extended.
@@ -17,6 +18,10 @@ class Event extends AbstractApi
      * registered device using X-AppPort.
      *
      * The default port is 41100
+     * @param int $port
+     * @param string $appName
+     * @param string $version
+     * @return array|string
      */
     public function subscribe($port = 41100, $appName = 'MusicCast', $version = '1')
     {
@@ -27,7 +32,7 @@ class Event extends AbstractApi
 
         //        $plugin = $this->client->getPlugin(AddBasePath::class);
         //        $this->client->removePlugin(AddBasePath::class);
-        return $this->get('', [], $headers);
+        return $this->get('', $headers);
         //        $this->client->addPlugin($plugin);
     }
 }

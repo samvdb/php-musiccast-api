@@ -13,6 +13,11 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Psr\SimpleCache\CacheInterface;
 
+/**
+ * Class Device
+ * @package MusicCast
+ * @author Damien Surot <damien@toxeek.com>
+ */
 class Device implements LoggerAwareInterface
 {
     /**
@@ -22,7 +27,7 @@ class Device implements LoggerAwareInterface
     /**
      * @var Client $client MusicCast Client
      */
-    protected $client;
+    private $client;
     /**
      * @var CacheInterface $cache The cache object to use for the expensive multicast discover
      * to find MusicCast devices on the network.
@@ -36,11 +41,11 @@ class Device implements LoggerAwareInterface
 
 
     /**
-     * Create a new instance.
-     *
-     * @param CacheInterface $cache The cache object to use for the expensive multicast discover to find
-     * MusicCast devices on the network
-     * @param LoggerInterface $logger The logging object
+     * Device constructor.
+     * @param $ip
+     * @param int $port
+     * @param CacheInterface|null $cache
+     * @param LoggerInterface|null $logger
      */
     public function __construct($ip, $port = 80, CacheInterface $cache = null, LoggerInterface $logger = null)
     {
@@ -79,12 +84,10 @@ class Device implements LoggerAwareInterface
         return $this->ip;
     }
 
-    /**
-     * @return Client
-     */
-    public function getClient()
+
+    public function call($api, $method, array $args = [])
     {
-        return $this->client;
+        return call_user_func_array(array($this->client->api($api), $method), $args);
     }
 
 
@@ -94,7 +97,7 @@ class Device implements LoggerAwareInterface
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
         }
-        $info = $this->client->api('system')->getDeviceInfo();
+        $info = $this->call('system', 'getDeviceInfo');
         $this->cache->set($cacheKey, $info);
         return $info;
     }
@@ -110,7 +113,7 @@ class Device implements LoggerAwareInterface
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
         }
-        $info = $this->client->api('system')->getLocationInfo();
+        $info = $this->call('system', 'getLocationInfo');
         $this->cache->set($cacheKey, $info);
         return $info;
     }
@@ -121,7 +124,7 @@ class Device implements LoggerAwareInterface
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
         }
-        $info = $this->client->api('system')->getMusicCastTreeInfo();
+        $info = $this->call('system', 'getMusicCastTreeInfo');
         $this->cache->set($cacheKey, $info);
         return $info;
     }
@@ -132,8 +135,13 @@ class Device implements LoggerAwareInterface
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
         }
-        $info = $this->client->api('system')->getNetworkStatus();
+        $info = $this->call('system', 'getNetworkStatus');
         $this->cache->set($cacheKey, $info);
         return $info;
+    }
+
+    public function getUuid()
+    {
+        return $this->getDeviceInfo()['device_id'];
     }
 }

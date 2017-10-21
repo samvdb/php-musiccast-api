@@ -229,9 +229,9 @@ class NetworkUSB extends AbstractApi
 
     /**
      * @param $input
-     * @param $itype
+     * @param $type
      * @param $timeout
-     * @return array
+     * @return array|string
      */
     public function getServiceInfo($input, $type, $timeout)
     {
@@ -248,7 +248,11 @@ class NetworkUSB extends AbstractApi
     }
 
     /**
-     * @return array
+     * @param $bank
+     * @param $type
+     * @param int $index
+     * @param string $zone
+     * @return array|string
      */
     public function manageMcPlaylist($bank, $type, $index = 0, $zone = 'main')
     {
@@ -257,7 +261,9 @@ class NetworkUSB extends AbstractApi
     }
 
     /**
-     * @return array
+     * @param $bank
+     * @param int $index
+     * @return array|string
      */
     public function getMcPlaylist($bank, $index = 0)
     {
