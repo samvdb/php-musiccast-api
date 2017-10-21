@@ -1,4 +1,5 @@
 <?php
+
 namespace MusicCast;
 
 use Http\Client\Common\HttpMethodsClient;
@@ -11,7 +12,6 @@ use Http\Discovery\StreamFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\MessageFactory;
 use Http\Message\StreamFactory;
-use MusicCast\Api\ApiInterface;
 use MusicCast\Exception\BadMethodCallException;
 use MusicCast\Exception\InvalidArgumentException;
 use MusicCast\HttpClient\Plugin\AddBasePath;
@@ -114,7 +114,7 @@ class Client
      *
      * @throws InvalidArgumentException
      *
-     * @return ApiInterface
+     * @return mixed
      */
     public function api($name)
     {
@@ -186,7 +186,7 @@ class Client
      *
      * @param string $fqcn
      *
-     * @return Plugin
+     * @return Plugin|null
      */
     public function getPlugin($fqcn)
     {
@@ -195,6 +195,7 @@ class Client
                 return $plugin;
             }
         }
+        return null;
     }
 
 
@@ -248,11 +249,9 @@ class Client
     }
 
     /**
-     * @param string $name
-     *
-     * @throws BadMethodCallException
-     *
-     * @return ApiInterface
+     * @param $name
+     * @param $args
+     * @return mixed
      */
     public function __call($name, $args)
     {
@@ -295,7 +294,7 @@ class Client
         $resolver->setAllowedTypes('port', ['integer']);
 
         $this->options = $resolver->resolve($options);
-        $this->postResolve($options);
+        $this->postResolve();
 
         return $this->options;
     }
@@ -303,9 +302,8 @@ class Client
     /**
      * Post resolve
      *
-     * @param array $options
      */
-    protected function postResolve(array $options = [])
+    protected function postResolve()
     {
         $this->options['base_url'] = sprintf(
             'http://%s:%s',

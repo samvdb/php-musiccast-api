@@ -32,7 +32,7 @@ class DistributionLiveTest extends \MusicCastTests\LiveTest
     /**
      * @test
      */
-    public function testSetCientInfo()
+    public function testSetClientInfo()
     {
         self::assertArrayHasKey('response_code', $this->client->api('dist')->setClientInfo());
     }

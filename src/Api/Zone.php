@@ -142,6 +142,7 @@ class Zone extends AbstractApi
     }
 
     /**
+     * @param $zone
      * @return array|string
      */
     public function getSignalInfo($zone)

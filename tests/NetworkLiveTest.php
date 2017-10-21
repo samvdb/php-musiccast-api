@@ -30,8 +30,8 @@ class NetworkLiveTest extends \MusicCastTests\LiveTest
 
     public function testGetControllerByIp()
     {
-        $ip = $this->network->getController()->getDevice()->getIp();
+        $ip = $this->network->getController()->getIp();
         $controller = $this->network->getControllerByIp($ip);
-        self::assertEquals($ip, $controller->getDevice()->getIp());
+        self::assertEquals($ip, $controller->getIp());
     }
 }

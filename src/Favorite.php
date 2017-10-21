@@ -8,6 +8,11 @@
 
 namespace MusicCast;
 
+/**
+ * Class Favorite
+ * @package MusicCast
+ * @author Damien Surot <damien@toxeek.com>
+ */
 class Favorite
 {
     /**
@@ -22,7 +27,7 @@ class Favorite
     /**
      * Create an instance of the Playlist class.
      *
-     * @param int $bank
+     * @param int $index
      * @param array $data
      * @param Controller $controller A controller instance on the playlist's network
      */
@@ -67,6 +72,6 @@ class Favorite
 
     public function play()
     {
-        $this->controller->getDevice()->getClient()->api('netusb')->recallPreset('main', $this->id);
+        $this->controller->call('netusb', 'main', [$this->id]);
     }
 }

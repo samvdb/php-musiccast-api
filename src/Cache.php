@@ -13,6 +13,7 @@ use Doctrine\Common\Cache\FilesystemCache;
 
 /**
  * A cache provider.
+ * @author Damien Surot <damien@toxeek.com>
  */
 class Cache extends DoctrineCachePool
 {

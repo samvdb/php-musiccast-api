@@ -33,7 +33,7 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
         foreach ($this->network->getSpeakers() as $speaker) {
             if ($speaker->isCoordinator()) {
                 $controller = new Controller($speaker, $this->network, 0);
-                $this->assertSame($speaker->getDevice()->getIp(), $controller->getDevice()->getIp());
+                $this->assertSame($speaker->getIp(), $controller->getIp());
                 return;
             }
         }
@@ -48,7 +48,7 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
 
         foreach ($this->network->getSpeakers() as $speaker) {
             if (!$speaker->isCoordinator()) {
-                $controller = new Controller($speaker, $this->network, 0);
+                new Controller($speaker, $this->network, 0);
                 return;
             }
         }
@@ -85,13 +85,14 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
 
     public function testGetStateDetails()
     {
-        $keys = ["title", "artist", "album", "queueNumber", "duration", "position", "input"];
+        $track_keys = ["input", "title", "artist", "album", "albumArt"];
+        $state_keys = ["duration", "position"];
         $state = $this->controller->getStateDetails();
-        foreach ($keys as $key) {
+        foreach ($state_keys as $key) {
             $this->assertObjectHasAttribute($key, $state);
-            if (in_array($key, ["queueNumber"])) {
-                $this->assertInternalType("integer", $state->$key);
-            }
+        }
+        foreach ($track_keys as $key) {
+            $this->assertObjectHasAttribute($key, $state->track);
         }
     }
 
@@ -99,18 +100,18 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
     public function testNext()
     {
         $controller = $this->controller;
-        $number = $controller->getStateDetails()->queueNumber;
+        $number = $controller->getQueue()->getPlayingIndex();
         $controller->next();
-        $this->assertSame($controller->getStateDetails()->queueNumber, $number + 1);
+        $this->assertSame($controller->getQueue()->getPlayingIndex(), $number + 1);
     }
 
 
     public function testPrevious()
     {
         $controller = $this->controller;
-        $number = $controller->getStateDetails()->queueNumber;
+        $number = $controller->getQueue()->getPlayingIndex();
         $controller->previous();
-        $this->assertSame($controller->getStateDetails()->queueNumber, $number);
+        $this->assertSame($controller->getQueue()->getPlayingIndex(), $number);
     }
 
 
@@ -126,7 +127,7 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
         $controller = $this->controller;
         $volume = $controller->getVolume();
         $controller->setVolume($volume - 3);
-        time_nanosleep(0, 500 * 1000000);//500ms
+        sleep(1);
         foreach ($controller->getSpeakers() as $speaker) {
             $this->assertSame($volume - 3, $speaker->getVolume());
         }
@@ -138,9 +139,9 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
         $controller = $this->controller;
         $volume = $controller->getVolume();
         $controller->setVolume($volume - 3);
-        time_nanosleep(0, 500 * 1000000);//500ms
+        sleep(1);
         $controller->adjustVolume(3);
-        time_nanosleep(0, 500 * 1000000);//500ms
+        sleep(1);
         foreach ($controller->getSpeakers() as $speaker) {
             $this->assertSame($volume, $speaker->getVolume());
         }
@@ -152,9 +153,9 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
         $controller = $this->controller;
         $volume = $controller->getVolume();
         $controller->setVolume($volume + 3);
-        time_nanosleep(0, 500 * 1000000);//500ms
+        sleep(1);
         $controller->adjustVolume(3 * -1);
-        time_nanosleep(0, 500 * 1000000);//500ms
+        sleep(1);
         foreach ($controller->getSpeakers() as $speaker) {
             $this->assertSame($volume, $speaker->getVolume());
         }

@@ -7,6 +7,7 @@ namespace MusicCast;
  *
  * Although sometimes a Controller is synonymous with a Speaker, when speakers are grouped together
  * only the coordinator can receive events (play/pause/etc)
+ * @author Damien Surot <damien@toxeek.com>
  */
 class Controller extends Speaker
 {
@@ -45,11 +46,28 @@ class Controller extends Speaker
      * @var Network $network The network instance this Controller is part of.
      */
     protected $network;
+
+    /**
+     * @var string
+     */
     private $group;
-    private $uuid;
+    /**
+     * @var Speaker[]
+     */
     private $speakers;
+    /**
+     * @var
+     */
     private $playlists;
+
+    /**
+     * @var
+     */
     private $favorites;
+
+    /**
+     * @var
+     */
     private $distribution_id;
 
     /**
@@ -58,6 +76,8 @@ class Controller extends Speaker
      * The speaker must be a coordinator.
      *
      * @param Speaker $speaker
+     * @param Network $network
+     * @param int $distribution_id
      */
     public function __construct(Speaker $speaker, Network $network, $distribution_id)
     {
@@ -68,8 +88,6 @@ class Controller extends Speaker
         }
         $this->network = $network;
         $this->group = $this->getGroup();
-        $this->group_name = $this->getName();
-        $this->uuid = $this->getUuid();
         $this->speakers = $this->getSpeakers();
         $this->distribution_id = $distribution_id;
     }
@@ -138,7 +156,7 @@ class Controller extends Speaker
      */
     public function getStateName()
     {
-        return $this->device->getClient()->api('netusb')->getPlayInfo()['playback'];
+        return $this->call('netusb', 'getPlayInfo')['playback'];
     }
 
     /**
@@ -148,7 +166,8 @@ class Controller extends Speaker
      */
     public function getStateDetails()
     {
-        return State::createFromJson($this);
+        $json = $this->call('netusb', 'getPlayInfo');
+        return State::buildState($json, $this->getIp());
     }
 
     /**
@@ -183,7 +202,7 @@ class Controller extends Speaker
 
     private function setPlayback($playback)
     {
-        return $this->device->getClient()->api('netusb')->setPlayback($playback);
+        return $this->call('netusb', 'setPlayback', [$playback]);
     }
 
     /**
@@ -233,7 +252,7 @@ class Controller extends Speaker
      */
     public function getMediaInfo()
     {
-        return $this->device->getClient()->api('netusb')->getPlayInfo()['input'];
+        return $this->call('netusb', 'getPlayInfo')['input'];
     }
 
     /**
@@ -254,10 +273,13 @@ class Controller extends Speaker
                 $group = md5($this->device->getIp());
             }
             if ($speaker->getGroup() == Speaker::NO_GROUP) {
-                $speaker->device->getClient()->api('dist')->setClientInfo($group, 'main', $this->device->getIp());
-                $this->device->getClient()->api('dist')->
-                setServerInfo($group, 'add', 'main', array($speaker->getDevice()->getIp()));
-                $this->device->getClient()->api('dist')->startDistribution($this->distribution_id);
+                $speaker->call('dist', 'setClientInfo', [$group, 'main', $this->device->getIp()]);
+                $this->call(
+                    'dist',
+                    'setServerInfo',
+                    [$group, 'add', 'main', array($speaker->device->getIp())]
+                );
+                $this->call('dist', 'startDistribution', [$this->distribution_id]);
                 $this->speakers[] = $speaker;
             }
         }
@@ -279,10 +301,13 @@ class Controller extends Speaker
         }
         if (in_array($speaker, $this->speakers)) {
             unset($this->speakers[array_search($speaker, $this->speakers)]);
-            $speaker->device->getClient()->api('dist')->setClientInfo();
-            $this->device->getClient()->api('dist')->
-            setServerInfo($this->getGroup(), 'remove', 'main', array($speaker->getDevice()->getIp()));
-            $this->device->getClient()->api('dist')->startDistribution($this->distribution_id);
+            $speaker->call('dist', 'setClientInfo');
+            $this->call(
+                'dist',
+                'setServerInfo',
+                [$this->getGroup(), 'remove', 'main', array($speaker->device->getIp())]
+            );
+            $this->call('dist', 'startDistribution', [$this->distribution_id]);
         }
         return $this;
     }
@@ -336,6 +361,14 @@ class Controller extends Speaker
         return $this;
     }
 
+    public function isStreaming()
+    {
+        $input = $this->call('zone', 'getStatus', ['main'])['input'];
+        return $input == "tuner" || strpos("hdmi", $input) != false || strpos("av", $input) != false
+            || strpos("aux", $input) != false || strpos("audio", $input) != false
+            || strpos("bluetooth", $input) != false;
+    }
+
     /**
      * Check if repeat is currently active.
      *
@@ -343,20 +376,18 @@ class Controller extends Speaker
      */
     public function getRepeat()
     {
-        return $this->device->getClient()->api('netusb')->getPlayInfo()['repeat'] != 'off';
+        return $this->call('netusb', 'getPlayInfo')['repeat'] != 'off';
     }
 
 
     /**
      * Turn repeat mode on or off.
      *
-     * @param bool $repeat Whether repeat should be on or not
-     *
      * @return static
      */
     public function toggleRepeat()
     {
-        return $this->device->getClient()->api('netusb')->toggleRepeat();
+        return $this->call('netusb', 'toggleRepeat');
     }
 
 
@@ -367,20 +398,17 @@ class Controller extends Speaker
      */
     public function getShuffle()
     {
-        return $this->device->getClient()->api('netusb')->getPlayInfo()['shuffle'] != 'off';
+        return $this->call('netusb', 'getPlayInfo')['shuffle'] != 'off';
     }
-
 
     /**
      * Turn shuffle mode on or off.
-     *
-     * @param bool $shuffle Whether shuffle should be on or not
      *
      * @return static
      */
     public function toggleShuffle()
     {
-        return $this->device->getClient()->api('netusb')->toggleShuffle();
+        return $this->call('netusb', 'toggleShuffle');
     }
 
 
@@ -391,7 +419,7 @@ class Controller extends Speaker
      */
     public function getQueue()
     {
-        return $this->device->getClient()->api('netusb')->getPlayQueue();
+        return new Queue($this->call('netusb', 'getPlayQueue'));
     }
 
 
@@ -400,7 +428,7 @@ class Controller extends Speaker
      *
      * If no case-sensitive match is found it will return a case-insensitive match.
      *
-     * @param string The name of the playlist
+     * @param string $name The name of the playlist
      *
      * @return bool
      */
@@ -428,11 +456,11 @@ class Controller extends Speaker
         if (is_array($this->playlists)) {
             return $this->playlists;
         }
-        $playlist_names = $this->device->getClient()->api('netusb')->getMcPlaylistName()['name_list'];
+        $playlist_names = $this->call('netusb', 'getMcPlaylistName')['name_list'];
         $playlists = [];
         $index = 1;
         foreach ($playlist_names as $playlist_name) {
-            $playlists[] = new Playlist($index++, $playlist_name, $this);
+            $playlists[$playlist_name] = new Playlist($index++, $playlist_name, $this);
         }
         return $this->playlists = $playlists;
     }
@@ -442,7 +470,7 @@ class Controller extends Speaker
      *
      * If no case-sensitive match is found it will return a case-insensitive match.
      *
-     * @param string The name of the playlist
+     * @param string $name The name of the playlist
      *
      * @return Playlist|null
      */
@@ -461,12 +489,13 @@ class Controller extends Speaker
         if ($roughMatch) {
             return $roughMatch;
         }
+        return null;
     }
 
     /**
      * Get the playlist with the specified id.
      *
-     * @param int The ID of the playlist
+     * @param int $id The ID of the playlist
      *
      * @return Playlist
      */
@@ -478,6 +507,7 @@ class Controller extends Speaker
                 return $playlist;
             }
         }
+        return null;
     }
 
     /**
@@ -485,11 +515,11 @@ class Controller extends Speaker
      *
      * If no case-sensitive match is found it will return a case-insensitive match.
      *
-     * @param string The name of the playlist
+     * @param string $name The name of the playlist
      *
      * @return bool
      */
-    public function hasFavorites($name)
+    public function hasFavorite($name)
     {
         $favorites = $this->getFavorites();
         foreach ($favorites as $item) {
@@ -513,13 +543,13 @@ class Controller extends Speaker
         if (is_array($this->favorites)) {
             return $this->favorites;
         }
-        $favorites_info = $this->device->getClient()->api('netusb')->getPresetInfo()['preset_info'];
+        $favorites_info = $this->call('netusb', 'getPresetInfo')['preset_info'];
         $favorites = [];
         $index = 0;
         foreach ($favorites_info as $item) {
             $index++;
             if ($item['text'] != '') {
-                $favorites[] = new Favorite($index, $item, $this);
+                $favorites[$item['text']] = new Favorite($index, $item, $this);
             }
         }
         return $this->favorites = $favorites;
@@ -530,7 +560,7 @@ class Controller extends Speaker
      *
      * If no case-sensitive match is found it will return a case-insensitive match.
      *
-     * @param string The name of the playlist
+     * @param string $name The name of the playlist
      *
      * @return Favorite|null
      */
@@ -549,12 +579,13 @@ class Controller extends Speaker
         if ($roughMatch) {
             return $roughMatch;
         }
+        return null;
     }
 
     /**
      * Get the playlist with the specified id.
      *
-     * @param int The ID of the playlist
+     * @param int $id The ID of the playlist
      *
      * @return Favorite
      */
@@ -566,6 +597,7 @@ class Controller extends Speaker
                 return $item;
             }
         }
+        return null;
     }
 
     /**

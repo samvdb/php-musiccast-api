@@ -1,0 +1,171 @@
+{
+  "response_code": 0,
+  "preset_info": [
+    {
+      "input": "net_radio",
+      "text": "OÜI FM Classic Rock",
+      "attribute": 0
+    },
+    {
+      "input": "net_radio",
+      "text": "4U Funky Classics",
+      "attribute": 0
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    },
+    {
+      "input": "unknown",
+      "text": ""
+    }
+  ],
+  "func_list": [
+    "clear",
+    "move"
+  ]
+}

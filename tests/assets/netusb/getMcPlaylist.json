@@ -1,0 +1,32 @@
+{
+  "response_code": 0,
+  "max_line": 4,
+  "bank": 1,
+  "index": 0,
+  "track_info": [
+    {
+      "input": "server",
+      "text": "Fernando",
+      "thumbnail": "http:\/\/192.168.86.4:50002\/transcoder\/jpegtnscaler.cgi\/ebdart\/73993.jpg",
+      "attribute": 63
+    },
+    {
+      "input": "server",
+      "text": "Jailbreak",
+      "thumbnail": "http:\/\/192.168.86.4:50002\/transcoder\/jpegtnscaler.cgi\/ebdart\/81777.jpg",
+      "attribute": 63
+    },
+    {
+      "input": "server",
+      "text": "Jailbreak",
+      "thumbnail": "http:\/\/192.168.86.4:50002\/transcoder\/jpegtnscaler.cgi\/ebdart\/81777.jpg",
+      "attribute": 63
+    },
+    {
+      "input": "server",
+      "text": "Stairway To Heaven",
+      "thumbnail": "http:\/\/192.168.86.4:50002\/transcoder\/jpegtnscaler.cgi\/ebdart\/76674.jpg",
+      "attribute": 63
+    }
+  ]
+}

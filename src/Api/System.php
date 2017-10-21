@@ -94,6 +94,7 @@ class System extends AbstractApi
     }
 
     /**
+     * @param string $type
      * @return array
      */
     public function isNewFirmwareAvailable($type = 'network')
