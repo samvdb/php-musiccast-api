@@ -55,7 +55,7 @@ class Queue implements \Countable
     /**
      * @return Track[]
      */
-    public function getTracks(): array
+    public function getTracks()
     {
         return $this->tracks;
     }
