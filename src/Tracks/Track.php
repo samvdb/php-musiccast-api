@@ -57,7 +57,7 @@ class Track
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -65,7 +65,7 @@ class Track
     /**
      * @return string
      */
-    public function getArtist(): string
+    public function getArtist()
     {
         return $this->artist;
     }
@@ -73,7 +73,7 @@ class Track
     /**
      * @return string
      */
-    public function getAlbum(): string
+    public function getAlbum()
     {
         return $this->album;
     }
@@ -81,7 +81,7 @@ class Track
     /**
      * @return string
      */
-    public function getAlbumArt(): string
+    public function getAlbumArt()
     {
         return $this->albumArt;
     }
@@ -89,7 +89,7 @@ class Track
     /**
      * @return string
      */
-    public function getInput(): string
+    public function getInput()
     {
         return $this->input;
     }
