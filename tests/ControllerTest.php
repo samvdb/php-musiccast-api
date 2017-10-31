@@ -46,10 +46,6 @@ class ControllerTest extends \MusicCastTests\MockTest
         self::assertEquals("190", $state->position);
     }
 
-    public function testGetMediaInfo()
-    {
-        self::assertEquals("server", $this->controller->getMediaInfo());
-    }
 
     public function testGetPlaylists()
     {

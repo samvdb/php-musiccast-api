@@ -63,4 +63,19 @@ class SpeakerTest extends \MusicCastTests\MockTest
     {
         self::assertFalse($this->speaker->isMuted());
     }
+
+    public function testInput()
+    {
+        self::assertEquals("tuner", $this->speaker->getInput());
+    }
+
+    public function testIsPowerOn()
+    {
+        self::assertFalse($this->speaker->isPowerOn());
+    }
+
+    public function testPowerOn()
+    {
+        self::assertNotNull($this->speaker->powerOn());
+    }
 }

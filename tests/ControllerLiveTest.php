@@ -212,4 +212,9 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
             return;
         }
     }
+
+    public function testPowerOn()
+    {
+        $this->controller->powerOn();
+    }
 }
