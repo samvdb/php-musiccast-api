@@ -72,6 +72,18 @@ class Speaker
     }
 
     /**
+     * Get the name of the group this speaker is a member of.
+     *
+     * @return string
+     */
+    public function getGroupName()
+    {
+        $group = $this->call('dist', 'getDistributionInfo')['group_name'];
+        return $group;
+        //return str_replace('(Linked) ', '', $group);
+    }
+
+    /**
      * Check if this speaker is the coordinator of it's current group.
      *
      * @return bool
@@ -162,7 +174,6 @@ class Speaker
         return $this;
     }
 
-
     /**
      * Power On this speaker.
      *
@@ -171,6 +182,17 @@ class Speaker
     public function powerOn()
     {
         return $this->setPower('on');
+    }
+
+
+    /**
+     * Power On this speaker.
+     *
+     * @return bool
+     */
+    public function isPowerOn()
+    {
+        return $this->call('zone', 'getStatus', ['main'])["power"] == 'on';
     }
 
     /**
@@ -198,5 +220,40 @@ class Speaker
     {
         $this->call('zone', 'setPower', ['main', $power]);
         return $this;
+    }
+
+    /**
+     * Get the currently active media info.
+     *
+     * @return array
+     */
+    public function getInput()
+    {
+        return $this->call('zone', 'getStatus', ['main'])['input'];
+    }
+
+
+    public function isStreaming()
+    {
+        $input = 'input' . $this->getInput();
+        return $input == "tuner" || stripos($input, "hdmi") != false || stripos($input, "av") != false
+            || stripos($input, "aux") != false || stripos($input, "audio") != false
+            || stripos($input, "bluetooth") != false;
+    }
+
+    /**
+     * Get List of available input
+     *
+     * @return array
+     */
+    public function getInputList()
+    {
+        $tags = $this->call('system', 'getTag');
+        $inputs = $tags['input_list'];
+        $return = [];
+        foreach ($inputs as $input) {
+            $return[] = $input['id'];
+        }
+        return $return;
     }
 }

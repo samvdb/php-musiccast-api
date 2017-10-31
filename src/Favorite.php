@@ -70,8 +70,9 @@ class Favorite
     }
 
 
+
     public function play()
     {
-        $this->controller->call('netusb', 'main', [$this->id]);
+        $this->controller->call('netusb', 'recallPreset', ['main', $this->id]);
     }
 }

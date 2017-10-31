@@ -48,10 +48,6 @@ class Controller extends Speaker
     protected $network;
 
     /**
-     * @var string
-     */
-    private $group;
-    /**
      * @var Speaker[]
      */
     private $speakers;
@@ -87,7 +83,6 @@ class Controller extends Speaker
             not the coordinator of it's group");
         }
         $this->network = $network;
-        $this->group = $this->getGroup();
         $this->speakers = $this->getSpeakers();
         $this->distribution_id = $distribution_id;
     }
@@ -105,6 +100,9 @@ class Controller extends Speaker
         $group = [];
         $speakers = $this->network->getSpeakers();
         foreach ($speakers as $speaker) {
+            if ($speaker->getUuid() == $this->getUuid()) {
+                $group[] = $speaker;
+            }
             if ($speaker->getGroup() === $this->getGroup() &&
                 !(is_numeric($speaker->getGroup()) || intval($speaker->getGroup()) == 0)) {
                 $group[] = $speaker;
@@ -245,14 +243,13 @@ class Controller extends Speaker
         return $this->setPlayback('previous');
     }
 
-    /**
-     * Get the currently active media info.
-     *
-     * @return array
-     */
-    public function getMediaInfo()
+
+    public function setInput($input)
     {
-        return $this->call('netusb', 'getPlayInfo')['input'];
+        if (key_exists('prepareInputChange', $this->call('system', 'getFuncStatus'))) {
+            $this->call('zone', 'prepareInputChange', ['main', $input]);
+        }
+        $this->call('zone', 'setInput', ['main', $input]);
     }
 
     /**
@@ -327,24 +324,6 @@ class Controller extends Speaker
 
 
     /**
-     * Set the current volume of all the speakers controlled by this Controller.
-     *
-     * @param int $volume An amount between 0 and 100
-     *
-     * @return static
-     */
-    public function setVolume($volume)
-    {
-        $speakers = $this->getSpeakers();
-        foreach ($speakers as $speaker) {
-            $speaker->setVolume($volume);
-        }
-
-        return $this;
-    }
-
-
-    /**
      * Adjust the volume of all the speakers controlled by this Controller.
      *
      * @param int $adjust A relative amount between -100 and 100
@@ -359,14 +338,6 @@ class Controller extends Speaker
         }
 
         return $this;
-    }
-
-    public function isStreaming()
-    {
-        $input = $this->call('zone', 'getStatus', ['main'])['input'];
-        return $input == "tuner" || strpos("hdmi", $input) != false || strpos("av", $input) != false
-            || strpos("aux", $input) != false || strpos("audio", $input) != false
-            || strpos("bluetooth", $input) != false;
     }
 
     /**
@@ -608,5 +579,23 @@ class Controller extends Speaker
     public function getNetwork()
     {
         return $this->network;
+    }
+
+    public function powerOn()
+    {
+        $speakers = $this->getSpeakers();
+        foreach ($speakers as $speaker) {
+            $speaker->powerOn();
+        }
+        return $this;
+    }
+
+    public function standBy()
+    {
+        $speakers = $this->getSpeakers();
+        foreach ($speakers as $speaker) {
+            $speaker->standBy();
+        }
+        return $this;
     }
 }
