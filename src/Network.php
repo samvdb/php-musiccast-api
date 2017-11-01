@@ -160,12 +160,12 @@ class Network implements LoggerAwareInterface
             return $this->speakers;
         }
 
-        $this->logger->info("creating speaker instances");
+        $this->logger->debug("creating speaker instances");
 
         $cacheKey = $this->getCacheKey();
 
         if ($this->cache->has($cacheKey)) {
-            $this->logger->info("getting device info from cache");
+            $this->logger->debug("getting device info from cache");
             $devices = $this->cache->get($cacheKey);
         } else {
             $devices = $this->getDevices();
@@ -184,7 +184,7 @@ class Network implements LoggerAwareInterface
         # Get the MusicCast devices from 1 speaker
         $ip = reset($devices);
         $device = new Device($ip, 80);
-        $this->logger->notice("Getting devices info from: {$ip}");
+        $this->logger->debug("Getting devices info from: {$ip}");
         $treeInfo = $device->getMusicCastTreeInfo();
         $this->speakers = [];
         foreach ($treeInfo['mac_address_list'] as $addr) {
@@ -233,7 +233,7 @@ class Network implements LoggerAwareInterface
      */
     protected function getDevices()
     {
-        $this->logger->info("discovering devices...");
+        $this->logger->debug("discovering devices...");
 
         $port = 1900;
 
@@ -300,7 +300,7 @@ class Network implements LoggerAwareInterface
             if (in_array($device["usn"], $unique)) {
                 continue;
             }
-            $this->logger->info("found device: {usn}", $device);
+            $this->logger->debug("found device: {usn}", $device);
 
             $url = parse_url($device["location"]);
             $ip = $url["host"];
@@ -332,5 +332,21 @@ class Network implements LoggerAwareInterface
             }
         }
         return null;
+    }
+
+    /**
+     * Get the speaker for the specified ip address.
+     *
+     * @param string $ip The ip address of the speaker
+     *
+     * @return Speaker
+     */
+    public function getSpeakerByIp($ip)
+    {
+        $speakers = $this->getSpeakers();
+        if (!array_key_exists($ip, $speakers)) {
+            throw new \InvalidArgumentException("No speaker found for the IP address '{$ip}'");
+        }
+        return $speakers[$ip];
     }
 }
