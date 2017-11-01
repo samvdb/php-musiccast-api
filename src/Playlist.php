@@ -19,7 +19,7 @@ class Playlist
      */
     protected $name;
     protected $id;
-    private $controller;
+    private $speaker;
 
 
     /**
@@ -27,13 +27,13 @@ class Playlist
      *
      * @param int $bank
      * @param string $name
-     * @param Controller $controller A controller instance on the playlist's network
+     * @param Speaker $controller A speaker instance on the playlist's network
      */
-    public function __construct($bank, $name, Controller $controller)
+    public function __construct($bank, $name, Speaker $controller)
     {
         $this->id = $bank;
         $this->name = $name;
-        $this->controller = $controller;
+        $this->speaker = $controller;
     }
 
 
@@ -60,6 +60,6 @@ class Playlist
 
     public function play($index = 0)
     {
-        $this->controller->call('netusb', 'manageMcPlaylist', [$this->id, 'play', $index]);
+        $this->speaker->call('netusb', 'manageMcPlaylist', [$this->id, 'play', $index]);
     }
 }

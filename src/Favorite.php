@@ -21,7 +21,7 @@ class Favorite
     protected $name;
     protected $input;
     protected $id;
-    protected $controller;
+    protected $speaker;
 
 
     /**
@@ -29,14 +29,14 @@ class Favorite
      *
      * @param int $index
      * @param array $data
-     * @param Controller $controller A controller instance on the playlist's network
+     * @param Speaker $speaker A controller instance on the playlist's network
      */
-    public function __construct($index, $data, Controller $controller)
+    public function __construct($index, $data, Speaker $speaker)
     {
         $this->id = $index;
         $this->name = $data['text'];
         $this->input = $data['input'];
-        $this->controller = $controller;
+        $this->speaker = $speaker;
     }
 
 
@@ -70,9 +70,8 @@ class Favorite
     }
 
 
-
     public function play()
     {
-        $this->controller->call('netusb', 'recallPreset', ['main', $this->id]);
+        $this->speaker->call('netusb', 'recallPreset', ['main', $this->id]);
     }
 }
