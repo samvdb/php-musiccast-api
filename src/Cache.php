@@ -23,7 +23,7 @@ class Cache extends DoctrineCachePool
 
     public function __construct()
     {
-        $cache = new FilesystemCache(sys_get_temp_dir() . DIRECTORY_SEPARATOR . "musicast");
+        $cache = new FilesystemCache(sys_get_temp_dir() . DIRECTORY_SEPARATOR . "musiccast");
         parent::__construct($cache);
     }
 }
