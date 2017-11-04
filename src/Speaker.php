@@ -158,7 +158,7 @@ class Speaker
      */
     public function isMuted()
     {
-        return (bool)$this->call('zone', 'getStatus', ['main'])['mute'];
+        return $this->call('zone', 'getStatus', ['main'])['mute'];
     }
 
     /**

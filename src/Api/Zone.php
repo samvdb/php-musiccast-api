@@ -101,7 +101,7 @@ class Zone extends AbstractApi
      */
     public function setMute($zone, $mute)
     {
-        return $this->call($zone, 'setMute?mute='.rawurlencode($mute?'true':'false'));
+        return $this->call($zone, 'setMute?enable='.rawurlencode($mute?'true':'false'));
     }
 
     /**

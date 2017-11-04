@@ -91,6 +91,8 @@ class Controller extends Speaker
                 $group[] = $speaker;
             }
         }
+
+
         return $group;
     }
 
@@ -399,6 +401,36 @@ class Controller extends Speaker
         $speakers = $this->getSpeakers();
         foreach ($speakers as $speaker) {
             $speaker->standBy();
+        }
+        return $this;
+    }
+
+    /**
+     * Mute all speakers controlled.
+     *
+     * @param bool $mute Whether the speakers should be muted or not
+     *
+     * @return static
+     */
+    public function mute($mute = true)
+    {
+        $speakers = $this->getSpeakers();
+        foreach ($speakers as $speaker) {
+            $speaker->mute();
+        }
+        return $this;
+    }
+
+    /**
+     * Mute all speakers controlled.
+     *
+     * @return static
+     */
+    public function unmute()
+    {
+        $speakers = $this->getSpeakers();
+        foreach ($speakers as $speaker) {
+            $speaker->unmute();
         }
         return $this;
     }

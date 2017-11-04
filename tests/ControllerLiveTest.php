@@ -217,4 +217,18 @@ class ControllerLiveTest extends \MusicCastTests\LiveTest
     {
         $this->controller->powerOn();
     }
+
+
+
+    public function testMute()
+    {
+        $this->controller->mute();
+    }
+
+
+
+    public function testUnMute()
+    {
+        $this->controller->unmute();
+    }
 }
