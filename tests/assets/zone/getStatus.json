@@ -1,0 +1,21 @@
+{
+  "response_code": 0,
+  "power": "standby",
+  "sleep": 0,
+  "volume": 77,
+  "mute": false,
+  "max_volume": 161,
+  "input": "tuner",
+  "distribution_enable": true,
+  "sound_program": "5ch_stereo",
+  "direct": false,
+  "enhancer": true,
+  "tone_control": {
+    "mode": "manual",
+    "bass": 0,
+    "treble": 0
+  },
+  "link_control": "standard",
+  "link_audio_delay": "lip_sync",
+  "disable_flags": 0
+}

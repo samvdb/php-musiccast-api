@@ -1,0 +1,23 @@
+{
+  "response_code": 0,
+  "input": "server",
+  "menu_layer": 0,
+  "max_line": 2,
+  "index": 0,
+  "playing_index": -1,
+  "menu_name": "SERVER",
+  "list_info": [
+    {
+      "text": "DiskStation",
+      "subtexts": [],
+      "thumbnail": "",
+      "attribute": 2
+    },
+    {
+      "text": "Kodi (Kodi)",
+      "subtexts": [],
+      "thumbnail": "",
+      "attribute": 2
+    }
+  ]
+}

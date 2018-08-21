@@ -1,0 +1,347 @@
+{
+  "response_code": 0,
+  "system": {
+    "func_list": [
+      "wired_lan",
+      "wireless_lan",
+      "wireless_direct",
+      "network_standby",
+      "network_standby_auto",
+      "bluetooth_standby",
+      "bluetooth_tx_setting",
+      "zone_b_volume_sync",
+      "hdmi_out_1",
+      "airplay",
+      "disklavier_settings"
+    ],
+    "zone_num": 2,
+    "input_list": [
+      {
+        "id": "spotify",
+        "distribution_enable": true,
+        "rename_enable": false,
+        "account_enable": false,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "juke",
+        "distribution_enable": true,
+        "rename_enable": false,
+        "account_enable": true,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "qobuz",
+        "distribution_enable": true,
+        "rename_enable": false,
+        "account_enable": true,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "airplay",
+        "distribution_enable": false,
+        "rename_enable": false,
+        "account_enable": false,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "mc_link",
+        "distribution_enable": false,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "server",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "net_radio",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "bluetooth",
+        "distribution_enable": true,
+        "rename_enable": false,
+        "account_enable": false,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "usb",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "netusb"
+      },
+      {
+        "id": "tuner",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "tuner"
+      },
+      {
+        "id": "hdmi1",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "hdmi2",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "hdmi3",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "hdmi4",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "av1",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "av2",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "av3",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "av4",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "audio1",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "audio2",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      },
+      {
+        "id": "aux",
+        "distribution_enable": true,
+        "rename_enable": true,
+        "account_enable": false,
+        "play_info_type": "none"
+      }
+    ],
+    "ymap_list": [
+      "vtuner"
+    ]
+  },
+  "zone": [
+    {
+      "id": "main",
+      "func_list": [
+        "power",
+        "sleep",
+        "volume",
+        "mute",
+        "sound_program",
+        "direct",
+        "enhancer",
+        "tone_control",
+        "signal_info",
+        "prepare_input_change",
+        "link_control",
+        "link_audio_delay"
+      ],
+      "input_list": [
+        "spotify",
+        "juke",
+        "qobuz",
+        "airplay",
+        "mc_link",
+        "server",
+        "net_radio",
+        "bluetooth",
+        "usb",
+        "tuner",
+        "hdmi1",
+        "hdmi2",
+        "hdmi3",
+        "hdmi4",
+        "av1",
+        "av2",
+        "av3",
+        "av4",
+        "audio1",
+        "audio2",
+        "aux"
+      ],
+      "sound_program_list": [
+        "munich",
+        "vienna",
+        "chamber",
+        "cellar_club",
+        "roxy_theatre",
+        "bottom_line",
+        "sports",
+        "action_game",
+        "roleplaying_game",
+        "music_video",
+        "standard",
+        "spectacle",
+        "sci-fi",
+        "adventure",
+        "drama",
+        "mono_movie",
+        "2ch_stereo",
+        "5ch_stereo",
+        "surr_decoder",
+        "straight"
+      ],
+      "tone_control_mode_list": [
+        "manual"
+      ],
+      "link_control_list": [
+        "speed",
+        "standard",
+        "stability"
+      ],
+      "link_audio_delay_list": [
+        "audio_sync",
+        "lip_sync"
+      ],
+      "range_step": [
+        {
+          "id": "volume",
+          "min": 0,
+          "max": 161,
+          "step": 1
+        },
+        {
+          "id": "tone_control",
+          "min": -12,
+          "max": 12,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "id": "zone2",
+      "zone_b": true,
+      "func_list": [
+        "power",
+        "volume",
+        "mute",
+        "prepare_input_change"
+      ],
+      "input_list": [
+        "spotify",
+        "juke",
+        "qobuz",
+        "airplay",
+        "mc_link",
+        "server",
+        "net_radio",
+        "bluetooth",
+        "usb",
+        "tuner",
+        "hdmi1",
+        "hdmi2",
+        "hdmi3",
+        "hdmi4",
+        "av1",
+        "av2",
+        "av3",
+        "av4",
+        "audio1",
+        "audio2",
+        "aux"
+      ],
+      "range_step": [
+        {
+          "id": "volume",
+          "min": 0,
+          "max": 161,
+          "step": 1
+        }
+      ]
+    }
+  ],
+  "tuner": {
+    "func_list": [
+      "fm",
+      "rds",
+      "dab"
+    ],
+    "range_step": [
+      {
+        "id": "fm",
+        "min": 87500,
+        "max": 108000,
+        "step": 50
+      }
+    ],
+    "preset": {
+      "type": "separate",
+      "num": 40
+    }
+  },
+  "netusb": {
+    "func_list": [
+      "recent_info",
+      "play_queue",
+      "mc_playlist"
+    ],
+    "preset": {
+      "num": 40
+    },
+    "recent_info": {
+      "num": 40
+    },
+    "play_queue": {
+      "size": 200
+    },
+    "mc_playlist": {
+      "size": 200,
+      "num": 5
+    },
+    "vtuner_fver": "A"
+  },
+  "distribution": {
+    "server_zone_list": [
+      "main"
+    ]
+  }
+}

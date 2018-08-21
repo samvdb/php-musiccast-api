@@ -1,0 +1,37 @@
+{
+  "response_code": 0,
+  "network_name": "BedRoom",
+  "connection": "wireless_lan",
+  "dhcp": true,
+  "ip_address": "192.168.1.9",
+  "subnet_mask": "255.255.255.0",
+  "default_gateway": "192.168.1.1",
+  "dns_server_1": "192.168.1.1",
+  "dns_server_2": "0.0.0.0",
+  "wireless_lan": {
+    "ssid": "WIFIssid",
+    "type": "wpa2-psk(aes)",
+    "key": "",
+    "ch": 6,
+    "strength": 100
+  },
+  "wireless_direct": {
+    "ssid": "RX-V481D FAA063",
+    "type": "none",
+    "key": ""
+  },
+  "musiccast_network": {
+    "ready": true,
+    "device_type": "standard",
+    "child_num": 0,
+    "ch": 0,
+    "initial_join_running": false
+  },
+  "mac_address": {
+    "wired_lan": "ABCDEEFAA063",
+    "wireless_lan": "ABCDEFE12F66",
+    "wireless_direct": "ABCDEFE12F67"
+  },
+  "vtuner_id": "ABCDEEFAA063",
+  "airplay_pin": ""
+}

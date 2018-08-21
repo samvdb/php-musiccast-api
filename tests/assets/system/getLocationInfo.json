@@ -1,0 +1,9 @@
+{
+  "response_code": 0,
+  "id": "a9957ae56c9f48d4a547c49029ae04f9",
+  "name": "Home",
+  "zone_list": {
+    "main": true,
+    "zone2": false
+  }
+}

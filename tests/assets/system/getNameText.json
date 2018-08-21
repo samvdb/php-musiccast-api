@@ -1,0 +1,181 @@
+{
+  "response_code": 0,
+  "zone_list": [
+    {
+      "id": "main",
+      "text": "BedRomm"
+    },
+    {
+      "id": "zone2",
+      "text": "Room2"
+    }
+  ],
+  "input_list": [
+    {
+      "id": "tuner",
+      "text": "Tuner"
+    },
+    {
+      "id": "hdmi1",
+      "text": "HDMI1"
+    },
+    {
+      "id": "hdmi2",
+      "text": "HDMI2"
+    },
+    {
+      "id": "hdmi3",
+      "text": "HDMI3"
+    },
+    {
+      "id": "hdmi4",
+      "text": "HDMI4"
+    },
+    {
+      "id": "av1",
+      "text": "AV1"
+    },
+    {
+      "id": "av2",
+      "text": "AV2"
+    },
+    {
+      "id": "av3",
+      "text": "AV3"
+    },
+    {
+      "id": "av4",
+      "text": "AV4"
+    },
+    {
+      "id": "aux",
+      "text": "AUX"
+    },
+    {
+      "id": "audio1",
+      "text": "Audio1"
+    },
+    {
+      "id": "audio2",
+      "text": "Audio2"
+    },
+    {
+      "id": "usb",
+      "text": "USB"
+    },
+    {
+      "id": "bluetooth",
+      "text": "Bluetooth"
+    },
+    {
+      "id": "server",
+      "text": "Server"
+    },
+    {
+      "id": "net_radio",
+      "text": "Net Radio"
+    },
+    {
+      "id": "spotify",
+      "text": "Spotify"
+    },
+    {
+      "id": "juke",
+      "text": "JUKE"
+    },
+    {
+      "id": "airplay",
+      "text": "AirPlay"
+    },
+    {
+      "id": "qobuz",
+      "text": "Qobuz"
+    },
+    {
+      "id": "mc_link",
+      "text": "MC Link"
+    }
+  ],
+  "sound_program_list": [
+    {
+      "id": "munich",
+      "text": "Hall in Munich"
+    },
+    {
+      "id": "vienna",
+      "text": "Hall in Vienna"
+    },
+    {
+      "id": "chamber",
+      "text": "Chamber"
+    },
+    {
+      "id": "cellar_club",
+      "text": "Cellar Club"
+    },
+    {
+      "id": "roxy_theatre",
+      "text": "The Roxy Theatre"
+    },
+    {
+      "id": "bottom_line",
+      "text": "The Bottom Line"
+    },
+    {
+      "id": "sports",
+      "text": "Sports"
+    },
+    {
+      "id": "action_game",
+      "text": "Action Game"
+    },
+    {
+      "id": "roleplaying_game",
+      "text": "Roleplaying Game"
+    },
+    {
+      "id": "music_video",
+      "text": "Music Video"
+    },
+    {
+      "id": "standard",
+      "text": "Standard"
+    },
+    {
+      "id": "spectacle",
+      "text": "Spectacle"
+    },
+    {
+      "id": "sci-fi",
+      "text": "Sci-Fi"
+    },
+    {
+      "id": "adventure",
+      "text": "Adventure"
+    },
+    {
+      "id": "drama",
+      "text": "Drama"
+    },
+    {
+      "id": "mono_movie",
+      "text": "Mono Movie"
+    },
+    {
+      "id": "2ch_stereo",
+      "text": "2ch Stereo"
+    },
+    {
+      "id": "5ch_stereo",
+      "text": "5ch Stereo"
+    },
+    {
+      "id": "surr_decoder",
+      "text": "Surround Decoder"
+    },
+    {
+      "id": "straight",
+      "text": "Straight"
+    }
+  ]
+}

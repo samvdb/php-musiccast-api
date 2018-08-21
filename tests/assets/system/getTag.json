@@ -1,0 +1,99 @@
+{
+  "response_code": 0,
+  "zone_list": [
+    {
+      "id": "main",
+      "tag": 0
+    },
+    {
+      "id": "zone2",
+      "tag": 0
+    }
+  ],
+  "input_list": [
+    {
+      "id": "tuner",
+      "tag": 0
+    },
+    {
+      "id": "hdmi1",
+      "tag": 0
+    },
+    {
+      "id": "hdmi2",
+      "tag": 0
+    },
+    {
+      "id": "hdmi3",
+      "tag": 0
+    },
+    {
+      "id": "hdmi4",
+      "tag": 0
+    },
+    {
+      "id": "av1",
+      "tag": 0
+    },
+    {
+      "id": "av2",
+      "tag": 0
+    },
+    {
+      "id": "av3",
+      "tag": 0
+    },
+    {
+      "id": "av4",
+      "tag": 0
+    },
+    {
+      "id": "aux",
+      "tag": 0
+    },
+    {
+      "id": "audio1",
+      "tag": 0
+    },
+    {
+      "id": "audio2",
+      "tag": 0
+    },
+    {
+      "id": "usb",
+      "tag": 0
+    },
+    {
+      "id": "bluetooth",
+      "tag": 0
+    },
+    {
+      "id": "server",
+      "tag": 0
+    },
+    {
+      "id": "net_radio",
+      "tag": 0
+    },
+    {
+      "id": "spotify",
+      "tag": 0
+    },
+    {
+      "id": "juke",
+      "tag": 0
+    },
+    {
+      "id": "airplay",
+      "tag": 0
+    },
+    {
+      "id": "qobuz",
+      "tag": 0
+    },
+    {
+      "id": "mc_link",
+      "tag": 0
+    }
+  ]
+}
