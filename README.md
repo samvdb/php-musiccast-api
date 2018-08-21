@@ -1,5 +1,16 @@
 # Yamaha MusicCast API PHP Library
 
+# DEPRECATED!!!!
+grandDam improved this library alot, it includes tests and more functionality.
+
+Use [this fork](https://github.com/grandDam/php-musiccast-api) Library instead!
+
+```sh
+composer require granddam/php-musiccast-api
+```
+
+# DEPRECATED!!!!
+
 A simple wrapper for the Yamaha MusicCast API.
 Not all call's have been implemented yet so pull requests are welcome!
 
