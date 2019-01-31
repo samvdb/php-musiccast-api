@@ -24,7 +24,7 @@ $ curl -s http://getcomposer.org/installer | php
 
 Via composer
 ```bash
-$ composer require samvdb/php-musiccast-api php-http/guzzle6-adapter
+$ composer require granDam/php-musiccast-api php-http/guzzle6-adapter
 ```
 
 You can install any adapter you want but guzzle is probably fine for what you want to do.
@@ -33,10 +33,12 @@ You can install any adapter you want but guzzle is probably fine for what you wa
 Start all groups playing music
 
 ```php
-$musicCast = new \duncan3dc\Sonos\Network;
+require 'vendor/autoload.php';
+
+$musicCast = new MusicCast\Network();
 $controllers = $musicCast->getControllers();
 foreach ($controllers as $controller) {
-    echo $controller->getGroup()\n";
+    echo $controller->getGroup() + "\n";
     echo "\tState: " . $controller->getStateName() . "\n";
     $controller->play();
 }
