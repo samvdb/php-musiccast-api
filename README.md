@@ -24,7 +24,7 @@ $ curl -s http://getcomposer.org/installer | php
 
 Via composer
 ```bash
-$ composer require granDam/php-musiccast-api php-http/guzzle6-adapter
+$ composer require granddam/php-musiccast-api php-http/guzzle6-adapter
 ```
 
 You can install any adapter you want but guzzle is probably fine for what you want to do.
